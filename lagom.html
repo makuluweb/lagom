@@ -92,9 +92,15 @@
   .next-tick.on svg { opacity: 1; }
   .next-text { font-size: 16.5px; color: var(--ink-soft); line-height: 1.4; transition: all 0.25s ease; }
   .next-text.struck { color: var(--ink-faint); text-decoration: line-through; text-decoration-color: var(--ink-faint); }
-  .parked-item { font-size: 16px; color: var(--ink-faint); line-height: 1.5; padding: 5px 0 5px 16px; position: relative; }
-  .parked-item::before { content: ""; position: absolute; left: 0; top: 13px; width: 6px; height: 1px; background: var(--ink-faint); }
-  .back .parked-item { font-size: 15px; opacity: 0.82; }
+  .p-row { display: flex; gap: 12px; align-items: flex-start; padding: 8px 0; cursor: pointer; }
+  .p-tick { width: 16px; height: 16px; border: 1.5px solid rgba(150,143,127,0.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 3px; transition: all 0.2s ease; }
+  .p-tick.on { background: var(--sage); border-color: var(--sage); }
+  .p-tick svg { width: 9px; height: 9px; stroke: var(--paper); stroke-width: 3; opacity: 0; transition: opacity 0.2s ease; }
+  .p-tick.on svg { opacity: 1; }
+  .p-text { font-size: 16px; color: var(--ink-faint); line-height: 1.45; transition: all 0.2s ease; }
+  .p-text.struck { text-decoration: line-through; text-decoration-color: var(--ink-faint); opacity: 0.6; }
+  .back .p-text { font-size: 15px; opacity: 0.85; }
+  .back .p-text.struck { opacity: 0.5; }
 
   .empty { text-align: center; padding: 36px 0 12px; }
   .empty-lead { font-size: 21px; line-height: 1.5; margin-bottom: 8px; }
@@ -238,7 +244,6 @@ function App() {
   const [stage, setStage] = useState("loading"); // loading | empty | reading | result | error | settings
   const [data, setData] = useState(null);
   const [done, setDone] = useState({});
-  const [doneNext, setDoneNext] = useState({});
   const [yesterday, setYesterday] = useState(null);
   const [errMsg, setErrMsg] = useState("");
   const [errDetail, setErrDetail] = useState("");
@@ -266,7 +271,6 @@ function App() {
         const parsed = JSON.parse(t);
         setData(parsed.data);
         setDone(parsed.done || {});
-        setDoneNext(parsed.doneNext || {});
         setStage("result");
         return;
       } catch {}
@@ -274,8 +278,8 @@ function App() {
     setStage("empty");
   }, []);
 
-  function persist(nextData, nextDone, nextDoneNext) {
-    LS.set("lagom:today", JSON.stringify({ data: nextData, done: nextDone, doneNext: nextDoneNext || {}, date: today }));
+  function persist(nextData, nextDone) {
+    LS.set("lagom:today", JSON.stringify({ data: nextData, done: nextDone, date: today }));
   }
 
   function saveSettings() {
@@ -378,33 +382,27 @@ function App() {
       not_today: parsed.not_today || [],
       back_burner: parsed.back_burner || [],
     };
-    setData(next); setDone({}); setDoneNext({}); setStage("result"); persist(next, {}, {});
+    setData(next); setDone({}); setStage("result"); persist(next, {});
     if (fileRef.current) fileRef.current.value = "";
   }
 
-  function toggle(i) {
-    const next = { ...done, [i]: !done[i] };
+  function toggle(key) {
+    const next = { ...done, [key]: !done[key] };
     setDone(next);
-    persist(data, next, doneNext);
-  }
-
-  function toggleNext(i) {
-    const next = { ...doneNext, [i]: !doneNext[i] };
-    setDoneNext(next);
-    persist(data, done, next);
+    persist(data, next);
   }
 
   function startNewDay() {
     if (data && data.three) {
       const total = data.three.length;
-      const completed = data.three.filter((_, i) => done[i]).length;
-      const open = data.three.filter((_, i) => !done[i]).map((t) => t.text);
+      const completed = data.three.filter((_, i) => done["three:" + i]).length;
+      const open = data.three.filter((_, i) => !done["three:" + i]).map((t) => t.text);
       LS.set("lagom:yesterday", JSON.stringify({ completed, total }));
       LS.set("lagom:carryover", JSON.stringify(open));
       setYesterday({ completed, total });
     }
     LS.del("lagom:today");
-    setData(null); setDone({}); setDoneNext({}); setStage("empty");
+    setData(null); setDone({}); setStage("empty");
   }
 
   const Gear = () => (
@@ -487,15 +485,15 @@ function App() {
 
           <div className="label mono">The three</div>
           {data.three.map((t, i) => (
-            <div className="three-card" key={i} onClick={() => toggle(i)}>
+            <div className="three-card" key={i} onClick={() => toggle("three:" + i)}>
               <div className="num mono">{String(i + 1).padStart(2, "0")}</div>
               <div className="tickwrap">
-                <div className={"tick" + (done[i] ? " on" : "")}>
+                <div className={"tick" + (done["three:" + i] ? " on" : "")}>
                   <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 </div>
               </div>
               <div className="body">
-                <div className={"task" + (done[i] ? " struck" : "")}>{t.text}</div>
+                <div className={"task" + (done["three:" + i] ? " struck" : "")}>{t.text}</div>
                 {t.why && <div className="why">{t.why}</div>}
               </div>
             </div>
@@ -506,11 +504,11 @@ function App() {
               <div className="label mono">The next</div>
               <div className="tier-hint">If the three are done and there's time.</div>
               {data.the_next.map((t, i) => (
-                <div className="next-row" key={i} onClick={() => toggleNext(i)}>
-                  <div className={"next-tick" + (doneNext[i] ? " on" : "")}>
+                <div className="next-row" key={i} onClick={() => toggle("next:" + i)}>
+                  <div className={"next-tick" + (done["next:" + i] ? " on" : "")}>
                     <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
                   </div>
-                  <div className={"next-text" + (doneNext[i] ? " struck" : "")}>{t}</div>
+                  <div className={"next-text" + (done["next:" + i] ? " struck" : "")}>{t}</div>
                 </div>
               ))}
             </div>
@@ -519,14 +517,28 @@ function App() {
           {data.not_today && data.not_today.length > 0 && (
             <div className="parked">
               <div className="label mono">Not today</div>
-              {data.not_today.map((t, i) => <div className="parked-item" key={i}>{t}</div>)}
+              {data.not_today.map((t, i) => (
+                <div className="p-row" key={i} onClick={() => toggle("not:" + i)}>
+                  <div className={"p-tick" + (done["not:" + i] ? " on" : "")}>
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </div>
+                  <div className={"p-text" + (done["not:" + i] ? " struck" : "")}>{t}</div>
+                </div>
+              ))}
             </div>
           )}
 
           {data.back_burner && data.back_burner.length > 0 && (
             <div className="parked back">
               <div className="label mono">Back burner</div>
-              {data.back_burner.map((t, i) => <div className="parked-item" key={i}>{t}</div>)}
+              {data.back_burner.map((t, i) => (
+                <div className="p-row" key={i} onClick={() => toggle("back:" + i)}>
+                  <div className={"p-tick" + (done["back:" + i] ? " on" : "")}>
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </div>
+                  <div className={"p-text" + (done["back:" + i] ? " struck" : "")}>{t}</div>
+                </div>
+              ))}
             </div>
           )}
 
