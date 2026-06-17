@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="theme-color" content="#E7E1D4" />
+<title>Lagom — just enough</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    --paper: #E7E1D4;
+    --paper-card: #EEE9DE;
+    --ink: #21303C;
+    --ink-soft: #5C6671;
+    --ink-faint: #968F7F;
+    --brass: #B07F2A;
+    --sage: #5E7355;
+    --line: rgba(33,48,60,0.14);
+    background: var(--paper);
+    background-image: radial-gradient(rgba(33,48,60,0.022) 1px, transparent 1px);
+    background-size: 4px 4px;
+    color: var(--ink);
+    font-family: 'Spectral', Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .lagom-root {
+    min-height: 100vh;
+    padding: max(28px, env(safe-area-inset-top)) 20px 64px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .mono { font-family: 'Spline Sans Mono', ui-monospace, monospace; }
+
+  .masthead { border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 26px; position: relative; }
+  .wordmark { font-size: 30px; font-weight: 600; letter-spacing: 0.5px; line-height: 1; }
+  .submark { font-family: 'Spline Sans Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-soft); margin-top: 9px; }
+  .gear { position: absolute; top: 0; right: 0; width: 34px; height: 34px; border: none; background: transparent; cursor: pointer; color: var(--ink-soft); padding: 6px; border-radius: 2px; }
+  .gear:hover { color: var(--ink); background: rgba(33,48,60,0.05); }
+  .gear svg { width: 100%; height: 100%; }
+
+  .opening { font-size: 18px; line-height: 1.5; font-style: italic; color: var(--ink); margin: 0 0 28px; }
+
+  .label { font-family: 'Spline Sans Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 14px; display: flex; align-items: center; gap: 10px; }
+  .label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  .three-card {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 18px 18px 18px 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    opacity: 0; transform: translateY(8px);
+    animation: rise 0.5s cubic-bezier(0.2,0.7,0.2,1) forwards;
+  }
+  .three-card:nth-child(2) { animation-delay: 0.08s; }
+  .three-card:nth-child(3) { animation-delay: 0.16s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  .num { font-family: 'Spline Sans Mono', ui-monospace, monospace; font-size: 13px; font-weight: 600; color: var(--brass); padding-top: 3px; min-width: 22px; }
+  .tickwrap { padding-top: 1px; }
+  .tick { width: 22px; height: 22px; border: 1.5px solid var(--ink-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+  .tick.on { background: var(--sage); border-color: var(--sage); }
+  .tick svg { width: 12px; height: 12px; stroke: var(--paper-card); stroke-width: 3; opacity: 0; transition: opacity 0.2s ease; }
+  .tick.on svg { opacity: 1; }
+
+  .body { flex: 1; }
+  .task { font-size: 19px; font-weight: 500; line-height: 1.35; transition: all 0.25s ease; }
+  .task.struck { color: var(--ink-faint); text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+  .why { font-size: 14.5px; color: var(--ink-soft); line-height: 1.45; margin-top: 5px; font-style: italic; }
+
+  .parked { margin-top: 34px; }
+  .parked .label { color: var(--ink-faint); }
+
+  /* The next — tickable, but quieter than the three */
+  .next-list { margin-top: 32px; }
+  .tier-hint { font-style: italic; font-size: 13.5px; color: var(--ink-faint); margin: -6px 0 14px; }
+  .next-row { display: flex; gap: 13px; align-items: flex-start; padding: 11px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+  .next-row:last-child { border-bottom: none; }
+  .next-tick { width: 18px; height: 18px; border: 1.5px solid var(--ink-faint); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; transition: all 0.2s ease; }
+  .next-tick.on { background: var(--sage); border-color: var(--sage); }
+  .next-tick svg { width: 10px; height: 10px; stroke: var(--paper); stroke-width: 3; opacity: 0; transition: opacity 0.2s ease; }
+  .next-tick.on svg { opacity: 1; }
+  .next-text { font-size: 16.5px; color: var(--ink-soft); line-height: 1.4; transition: all 0.25s ease; }
+  .next-text.struck { color: var(--ink-faint); text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+  .parked-item { font-size: 16px; color: var(--ink-faint); line-height: 1.5; padding: 5px 0 5px 16px; position: relative; }
+  .parked-item::before { content: ""; position: absolute; left: 0; top: 13px; width: 6px; height: 1px; background: var(--ink-faint); }
+  .back .parked-item { font-size: 15px; opacity: 0.82; }
+
+  .empty { text-align: center; padding: 36px 0 12px; }
+  .empty-lead { font-size: 21px; line-height: 1.5; margin-bottom: 8px; }
+  .empty-sub { font-size: 15px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 30px; }
+
+  .btn { font-family: 'Spline Sans Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; background: var(--ink); color: var(--paper); border: none; border-radius: 2px; padding: 16px 28px; cursor: pointer; transition: background 0.2s ease; }
+  .btn:hover { background: #2c4150; }
+  .btn:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+  .btn-ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+  .btn-ghost:hover { background: rgba(33,48,60,0.04); }
+
+  input[type=file] { display: none; }
+
+  .reading { text-align: center; padding: 80px 0; }
+  .reading-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--brass); margin: 0 4px; animation: pulse 1.2s infinite ease-in-out; }
+  .reading-dot:nth-child(2) { animation-delay: 0.2s; }
+  .reading-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes pulse { 0%,100% { opacity: 0.25; } 50% { opacity: 1; } }
+  .reading-text { font-style: italic; color: var(--ink-soft); margin-top: 20px; font-size: 16px; }
+
+  .footer { margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .yesterday { font-family: 'Spline Sans Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 1px; color: var(--ink-faint); text-transform: uppercase; }
+
+  .errbox { text-align: center; padding: 40px 0; }
+  .errbox p { color: var(--ink-soft); font-size: 16px; line-height: 1.5; margin-bottom: 24px; }
+  .errdetail { font-size: 11px !important; color: var(--ink-faint) !important; background: rgba(33,48,60,0.05); border: 1px solid var(--line); border-radius: 2px; padding: 10px 12px; word-break: break-word; text-align: left; margin: 0 0 24px !important; }
+
+  /* Settings */
+  .settings { padding: 8px 0; }
+  .settings h2 { font-family: 'Spline Sans Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; margin: 0 0 22px; }
+  .field { margin-bottom: 22px; }
+  .field label { display: block; font-family: 'Spline Sans Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+  .field input { width: 100%; font-family: 'Spline Sans Mono', ui-monospace, monospace; font-size: 14px; color: var(--ink); background: var(--paper-card); border: 1px solid var(--line); border-radius: 2px; padding: 13px 14px; }
+  .field input:focus { outline: none; border-color: var(--brass); }
+  .field .hint { font-family: 'Spectral', serif; font-size: 13.5px; font-style: italic; color: var(--ink-faint); margin-top: 8px; line-height: 1.45; }
+  .settings-actions { display: flex; gap: 12px; margin-top: 28px; }
+  .saved-flash { font-family: 'Spline Sans Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 1px; color: var(--sage); text-transform: uppercase; margin-left: 4px; align-self: center; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .three-card { animation: none; opacity: 1; transform: none; }
+    .reading-dot { animation: none; opacity: 0.6; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel-src" id="app-src">
+const { useState, useEffect, useRef } = React;
+
+const LS = {
+  get: (k) => { try { return localStorage.getItem(k); } catch { return null; } },
+  set: (k, v) => { try { localStorage.setItem(k, v); } catch {} },
+  del: (k) => { try { localStorage.removeItem(k); } catch {} },
+};
+
+const DEFAULT_MODEL = "claude-sonnet-4-6";
+
+const SYSTEM_PROMPT = `You are the prioritisation engine for Lagom, a daily focus tool. Each morning the user photographs a handwritten to-do list. Your job is to read the handwriting and sort it into four buckets, leading with the THREE things that genuinely matter today.
+
+Guiding philosophy — "just enough": respect timing, and don't force outcomes that aren't the user's to control.
+
+The four buckets:
+1. three — the genuinely essential, must-happen-today items. At most three. Choose in this order: people first (hard human conversations, a call someone is waiting on, being present for someone) outrank admin or strategy; then time-sensitive logistics tied to imminent travel or a hard deadline in the next day or two.
+2. the_next — today-ish tasks worth doing if the three are done and there is time left. They look like today tasks (a quick call, a message, a booking, a small errand) but they are not make-or-break. This is the "if I have time" tier.
+3. not_today — real tasks, but not today: big strategic or planning rocks that need a clear desk, anything not time-critical.
+4. back_burner — the "outcome layer": job applications, awaiting replies, anything sitting on someone else's clock.
+
+Honour what the user already marked: done, urgent, must-do, back-burner.
+
+Return ONLY valid JSON. No markdown, no code fences, no preamble. Shape:
+{
+  "opening": "one short, warm, direct line to the user about today",
+  "three": [ { "text": "the task in a few words", "why": "one short sentence on why it's today" } ],
+  "the_next": [ "task" ],
+  "not_today": [ "task" ],
+  "back_burner": [ "task" ]
+}
+At most three items in "three". Keep every "why" to one short sentence. Tone: warm, peer-level, concise. Never use em dashes.`;
+
+function readRawBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result.split(",")[1]);
+    r.onerror = () => rej(new Error("read failed"));
+    r.readAsDataURL(file);
+  });
+}
+
+function bitmapToJpeg(bitmap) {
+  const maxDim = 1568;
+  let { width, height } = bitmap;
+  if (Math.max(width, height) > maxDim) {
+    const s = maxDim / Math.max(width, height);
+    width = Math.round(width * s);
+    height = Math.round(height * s);
+  }
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  canvas.getContext("2d").drawImage(bitmap, 0, 0, width, height);
+  return canvas.toDataURL("image/jpeg", 0.85).split(",")[1];
+}
+
+function decodeViaImg(file) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const data = bitmapToJpeg(img);
+        URL.revokeObjectURL(url);
+        resolve(data);
+      } catch (e) { URL.revokeObjectURL(url); reject(e); }
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("img decode failed")); };
+    img.src = url;
+  });
+}
+
+async function fileToImagePayload(file) {
+  const accepted = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+  // 1 — decode bytes directly
+  try {
+    const bitmap = await createImageBitmap(file);
+    const data = bitmapToJpeg(bitmap);
+    bitmap.close && bitmap.close();
+    return { media: "image/jpeg", data };
+  } catch (e1) {}
+  // 2 — let the browser's native decoder handle it (Safari reads HEIC here)
+  try {
+    return { media: "image/jpeg", data: await decodeViaImg(file) };
+  } catch (e2) {}
+  // 3 — send raw bytes if the model already accepts the format
+  if (accepted.includes(file.type)) {
+    return { media: file.type, data: await readRawBase64(file) };
+  }
+  throw new Error("no decoder for " + (file.type || "unknown"));
+}
+
+function App() {
+  const [stage, setStage] = useState("loading"); // loading | empty | reading | result | error | settings
+  const [data, setData] = useState(null);
+  const [done, setDone] = useState({});
+  const [doneNext, setDoneNext] = useState({});
+  const [yesterday, setYesterday] = useState(null);
+  const [errMsg, setErrMsg] = useState("");
+  const [errDetail, setErrDetail] = useState("");
+  const [apiKey, setApiKey] = useState("");
+  const [model, setModel] = useState(DEFAULT_MODEL);
+  const [keyDraft, setKeyDraft] = useState("");
+  const [modelDraft, setModelDraft] = useState(DEFAULT_MODEL);
+  const [savedFlash, setSavedFlash] = useState(false);
+  const fileRef = useRef(null);
+
+  const today = new Date().toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "long" });
+
+  useEffect(() => {
+    const k = LS.get("lagom:apikey") || "";
+    const m = LS.get("lagom:model") || DEFAULT_MODEL;
+    setApiKey(k);
+    setModel(m);
+    setKeyDraft(k);
+    setModelDraft(m);
+    const y = LS.get("lagom:yesterday");
+    if (y) { try { setYesterday(JSON.parse(y)); } catch {} }
+    const t = LS.get("lagom:today");
+    if (t) {
+      try {
+        const parsed = JSON.parse(t);
+        setData(parsed.data);
+        setDone(parsed.done || {});
+        setDoneNext(parsed.doneNext || {});
+        setStage("result");
+        return;
+      } catch {}
+    }
+    setStage("empty");
+  }, []);
+
+  function persist(nextData, nextDone, nextDoneNext) {
+    LS.set("lagom:today", JSON.stringify({ data: nextData, done: nextDone, doneNext: nextDoneNext || {}, date: today }));
+  }
+
+  function saveSettings() {
+    const k = keyDraft.trim();
+    const m = (modelDraft.trim() || DEFAULT_MODEL);
+    setApiKey(k);
+    setModel(m);
+    LS.set("lagom:apikey", k);
+    LS.set("lagom:model", m);
+    setSavedFlash(true);
+    setTimeout(() => setSavedFlash(false), 1800);
+  }
+
+  function extractJson(t) {
+    const a = t.indexOf("{");
+    const b = t.lastIndexOf("}");
+    return a >= 0 && b > a ? t.slice(a, b + 1) : t;
+  }
+
+  function fail(msg, detail) {
+    setErrMsg(msg);
+    setErrDetail(detail || "");
+    setStage("error");
+    if (fileRef.current) fileRef.current.value = "";
+  }
+
+  function openPicker() {
+    if (!apiKey) { setStage("settings"); return; }
+    fileRef.current && fileRef.current.click();
+  }
+
+  async function handleFile(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    setStage("reading");
+    setErrMsg(""); setErrDetail("");
+
+    let payload;
+    try {
+      payload = await fileToImagePayload(file);
+    } catch (err) {
+      return fail(
+        "That photo couldn't be read. Try taking a fresh photo with the camera.",
+        "convert · " + (err && err.message) + " · type=" + (file.type || "?")
+      );
+    }
+
+    let carry = "";
+    const c = LS.get("lagom:carryover");
+    if (c) { try { const items = JSON.parse(c); if (items.length) carry = `\n\nStill open from yesterday: ${items.join("; ")}. Fold any that still matter into today.`; } catch {} }
+
+    let res;
+    try {
+      res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true",
+        },
+        body: JSON.stringify({
+          model: model || DEFAULT_MODEL,
+          max_tokens: 1500,
+          system: SYSTEM_PROMPT,
+          messages: [{
+            role: "user",
+            content: [
+              { type: "image", source: { type: "base64", media_type: payload.media, data: payload.data } },
+              { type: "text", text: `Here's this morning's list. Read it and cut it to three. Reply with JSON only.${carry}` },
+            ],
+          }],
+        }),
+      });
+    } catch (err) {
+      return fail("Couldn't reach the model. Check your connection and try again.", "network · " + (err && err.message));
+    }
+
+    let json;
+    try { json = await res.json(); }
+    catch (err) { return fail("The model's reply came back unreadable.", "body · status " + res.status); }
+
+    if (!res.ok || json.error) {
+      const reason = (json.error && json.error.message) ? json.error.message : JSON.stringify(json).slice(0, 200);
+      const hint = res.status === 401 ? "Check your API key in Settings." : "";
+      return fail("The model returned an error. " + hint, "api · status " + res.status + " · " + reason);
+    }
+
+    const text = (json.content || []).filter((b) => b.type === "text").map((b) => b.text).join("\n").trim();
+    let parsed;
+    try { parsed = JSON.parse(extractJson(text)); }
+    catch (err) {
+      return fail("Couldn't make sense of the model's reply.", "parse · " + (text ? text.slice(0, 240) : "(empty · stop=" + (json.stop_reason || "?") + ")"));
+    }
+
+    const next = {
+      opening: parsed.opening || "",
+      three: (parsed.three || []).slice(0, 3),
+      the_next: parsed.the_next || [],
+      not_today: parsed.not_today || [],
+      back_burner: parsed.back_burner || [],
+    };
+    setData(next); setDone({}); setDoneNext({}); setStage("result"); persist(next, {}, {});
+    if (fileRef.current) fileRef.current.value = "";
+  }
+
+  function toggle(i) {
+    const next = { ...done, [i]: !done[i] };
+    setDone(next);
+    persist(data, next, doneNext);
+  }
+
+  function toggleNext(i) {
+    const next = { ...doneNext, [i]: !doneNext[i] };
+    setDoneNext(next);
+    persist(data, done, next);
+  }
+
+  function startNewDay() {
+    if (data && data.three) {
+      const total = data.three.length;
+      const completed = data.three.filter((_, i) => done[i]).length;
+      const open = data.three.filter((_, i) => !done[i]).map((t) => t.text);
+      LS.set("lagom:yesterday", JSON.stringify({ completed, total }));
+      LS.set("lagom:carryover", JSON.stringify(open));
+      setYesterday({ completed, total });
+    }
+    LS.del("lagom:today");
+    setData(null); setDone({}); setDoneNext({}); setStage("empty");
+  }
+
+  const Gear = () => (
+    <button className="gear" aria-label="Settings" onClick={() => { setKeyDraft(apiKey); setModelDraft(model); setStage("settings"); }}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+      </svg>
+    </button>
+  );
+
+  return (
+    <div className="lagom-root">
+      <div className="masthead">
+        <div className="wordmark">Lagom</div>
+        <div className="submark">Just enough · {today}</div>
+        {stage !== "settings" && <Gear />}
+      </div>
+
+      {stage === "loading" && <div className="reading" />}
+
+      {stage === "settings" && (
+        <div className="settings">
+          <h2>Settings</h2>
+          <div className="field">
+            <label>Anthropic API key</label>
+            <input type="password" value={keyDraft} onChange={(e) => setKeyDraft(e.target.value)} placeholder="sk-ant-..." autoComplete="off" spellCheck="false" />
+            <div className="hint">Stored only in this browser, on this device. Sent directly to Anthropic when you read a list. Use a key you can rotate.</div>
+          </div>
+          <div className="field">
+            <label>Model</label>
+            <input type="text" value={modelDraft} onChange={(e) => setModelDraft(e.target.value)} placeholder={DEFAULT_MODEL} autoComplete="off" spellCheck="false" />
+            <div className="hint">Leave as is unless you want a different model.</div>
+          </div>
+          <div className="settings-actions">
+            <button className="btn" onClick={saveSettings}>Save</button>
+            <button className="btn btn-ghost" onClick={() => setStage(data ? "result" : "empty")}>Back</button>
+            {savedFlash && <span className="saved-flash">Saved</span>}
+          </div>
+        </div>
+      )}
+
+      {stage === "empty" && (
+        <div className="empty">
+          <div className="empty-lead">Write your list in ink. Then photograph the page.</div>
+          <div className="empty-sub">
+            {apiKey
+              ? "I'll read it and find the three that matter today. The rest gets parked, so it stops pulling at you."
+              : "First, add your Anthropic API key in settings. Then write, photograph, and I'll find your three."}
+          </div>
+          <button className="btn" onClick={openPicker}>
+            {apiKey ? "Photograph today's list" : "Add API key to begin"}
+          </button>
+          {yesterday && (
+            <div className="yesterday" style={{ marginTop: 26 }}>
+              Yesterday · {yesterday.completed} of {yesterday.total} done
+            </div>
+          )}
+        </div>
+      )}
+
+      {stage === "reading" && (
+        <div className="reading">
+          <span className="reading-dot" /><span className="reading-dot" /><span className="reading-dot" />
+          <div className="reading-text">Reading your page…</div>
+        </div>
+      )}
+
+      {stage === "error" && (
+        <div className="errbox">
+          <p>{errMsg}</p>
+          {errDetail && <p className="errdetail mono">{errDetail}</p>}
+          <button className="btn" onClick={openPicker}>Try again</button>
+        </div>
+      )}
+
+      {stage === "result" && data && (
+        <React.Fragment>
+          {data.opening && <p className="opening">{data.opening}</p>}
+
+          <div className="label mono">The three</div>
+          {data.three.map((t, i) => (
+            <div className="three-card" key={i} onClick={() => toggle(i)}>
+              <div className="num mono">{String(i + 1).padStart(2, "0")}</div>
+              <div className="tickwrap">
+                <div className={"tick" + (done[i] ? " on" : "")}>
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </div>
+              </div>
+              <div className="body">
+                <div className={"task" + (done[i] ? " struck" : "")}>{t.text}</div>
+                {t.why && <div className="why">{t.why}</div>}
+              </div>
+            </div>
+          ))}
+
+          {data.the_next && data.the_next.length > 0 && (
+            <div className="next-list">
+              <div className="label mono">The next</div>
+              <div className="tier-hint">If the three are done and there's time.</div>
+              {data.the_next.map((t, i) => (
+                <div className="next-row" key={i} onClick={() => toggleNext(i)}>
+                  <div className={"next-tick" + (doneNext[i] ? " on" : "")}>
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </div>
+                  <div className={"next-text" + (doneNext[i] ? " struck" : "")}>{t}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {data.not_today && data.not_today.length > 0 && (
+            <div className="parked">
+              <div className="label mono">Not today</div>
+              {data.not_today.map((t, i) => <div className="parked-item" key={i}>{t}</div>)}
+            </div>
+          )}
+
+          {data.back_burner && data.back_burner.length > 0 && (
+            <div className="parked back">
+              <div className="label mono">Back burner</div>
+              {data.back_burner.map((t, i) => <div className="parked-item" key={i}>{t}</div>)}
+            </div>
+          )}
+
+          <div className="footer">
+            <span className="yesterday">
+              {yesterday ? `Yesterday · ${yesterday.completed} of ${yesterday.total}` : "A fresh page tomorrow"}
+            </span>
+            <button className="btn btn-ghost" onClick={startNewDay}>Start a new day</button>
+          </div>
+        </React.Fragment>
+      )}
+
+      <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+<script>
+  (function () {
+    try {
+      var src = document.getElementById("app-src").textContent;
+      var out = Babel.transform(src, { presets: [["react", { runtime: "classic" }]] }).code;
+      var s = document.createElement("script");
+      s.textContent = out;
+      document.body.appendChild(s);
+    } catch (e) {
+      document.getElementById("root").innerHTML =
+        '<pre style="white-space:pre-wrap;font:13px monospace;color:#21303C;padding:24px;line-height:1.5">Lagom couldn\'t start:\n\n' +
+        ((e && e.message) ? e.message : String(e)) + '</pre>';
+    }
+  })();
+</script>
+</body>
+</html>
