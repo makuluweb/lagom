@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0F3B47">
+<title>Nusa del Rey · 14 to 21 Nov</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,100&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F3B47;
+    --ink2:#16515F;
+    --lagoon:#2FA8A0;
+    --lagoon-soft:#DDF1EF;
+    --sand:#F5EEDF;
+    --sand-deep:#E8DCC2;
+    --coral:#E5704B;
+    --white:#FFFDF9;
+    --text:#1D2B30;
+    --muted:#6A7A80;
+    --line:#E2DACB;
+    --danger:#C8473A;
+    --r:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Karla',system-ui,sans-serif;
+    background:var(--sand);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:calc(84px + env(safe-area-inset-bottom));
+    font-size:16px;line-height:1.45;
+  }
+  h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  button{font-family:inherit;font-size:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  input,select,textarea{font-family:inherit;font-size:16px;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--white);width:100%}
+  input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--lagoon);outline-offset:1px}
+  textarea{resize:vertical;min-height:70px}
+  a{color:var(--ink2)}
+
+  /* hero */
+  .hero{
+    background:var(--ink);color:var(--sand);
+    padding:calc(18px + env(safe-area-inset-top)) 20px 22px;
+    border-bottom-left-radius:26px;border-bottom-right-radius:26px;
+    position:relative;overflow:hidden;
+  }
+  .hero .sea{position:absolute;inset:auto -20% -60% -20%;height:70%;background:radial-gradient(ellipse at 50% 100%, #1D6F79 0%, rgba(29,111,121,0) 70%);pointer-events:none}
+  .hero .sun{position:absolute;right:18px;top:calc(22px + env(safe-area-inset-top));width:54px;height:54px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 10px rgba(229,112,75,.15)}
+  .hero .kicker{font-size:14px;color:#9FD1CC;margin-bottom:4px}
+  .hero h1{font-size:34px;line-height:1.05;font-weight:400;font-variation-settings:"SOFT" 100}
+  .hero .count{margin-top:16px;display:flex;align-items:baseline;gap:8px}
+  .hero .count b{font-family:'Fraunces',serif;font-size:56px;font-weight:300;line-height:1;color:var(--white)}
+  .hero .count span{font-size:15px;color:#9FD1CC}
+  .hero .dates{margin-top:8px;font-size:14px;color:#CFE6E3}
+
+  main{padding:18px 16px 0}
+  section[data-tab]{display:none}
+  section[data-tab].on{display:block}
+  h2{font-size:22px;margin:10px 0 12px}
+  h3{font-size:17px;margin:0 0 6px}
+  .sub{color:var(--muted);font-size:14px}
+
+  .card{background:var(--white);border-radius:var(--r);padding:16px;margin-bottom:14px;border:1px solid var(--line)}
+  .card.tint{background:var(--lagoon-soft);border-color:transparent}
+  .row{display:flex;gap:10px;align-items:center}
+  .row.between{justify-content:space-between}
+  .stack{display:flex;flex-direction:column;gap:10px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .pill{display:inline-block;background:var(--sand-deep);border-radius:999px;padding:3px 10px;font-size:13px;color:var(--ink2);margin:2px 4px 2px 0}
+  .pill.lagoon{background:var(--lagoon-soft)}
+  .btn{background:var(--ink);color:var(--white);border-radius:10px;padding:11px 16px;font-weight:600;font-size:15px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+  .btn.full{width:100%}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn.soft{background:var(--sand-deep);color:var(--ink)}
+  .btn.coral{background:var(--coral)}
+  .btn.sm{padding:7px 12px;font-size:14px}
+  .icon{width:34px;height:34px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;background:var(--sand);color:var(--muted);font-size:18px}
+  .icon.del:hover{color:var(--danger)}
+  .link{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text)}
+  .link:last-child{border-bottom:0}
+  .link small{color:var(--muted);display:block}
+  .link:after{content:"↗";color:var(--muted)}
+  .fact{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
+  .fact:last-child{border-bottom:0}
+  .fact span:first-child{color:var(--muted)}
+  .empty{color:var(--muted);font-size:14px;padding:6px 0}
+
+  /* days */
+  .daystrip{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}
+  .daystrip::-webkit-scrollbar{display:none}
+  .daychip{flex:0 0 auto;width:60px;padding:10px 0;border-radius:12px;background:var(--white);border:1px solid var(--line);text-align:center}
+  .daychip small{display:block;color:var(--muted);font-size:12px}
+  .daychip b{font-family:'Fraunces',serif;font-size:22px;font-weight:400;display:block;line-height:1}
+  .daychip.on{background:var(--ink);color:var(--white);border-color:var(--ink)}
+  .daychip.on small{color:#9FD1CC}
+  .daychip.themed{box-shadow:inset 0 -3px 0 var(--coral)}
+  .slot{border-top:1px solid var(--line);padding:10px 0}
+  .slot:first-child{border-top:0}
+  .slot .name{font-size:13px;color:var(--muted);margin-bottom:6px}
+  .plan{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;padding:6px 0}
+  .plan .t{flex:1}
+  .plan .t small{display:block;color:var(--muted)}
+  .idea{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .idea:last-child{border-bottom:0}
+  .idea small{display:block;color:var(--muted)}
+
+  /* lists */
+  .item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .item:last-child{border-bottom:0}
+  .chk{width:24px;height:24px;border-radius:7px;border:2px solid var(--ink2);flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;color:var(--white);font-size:15px}
+  .chk.on{background:var(--lagoon);border-color:var(--lagoon)}
+  .item.done .lbl{text-decoration:line-through;color:var(--muted)}
+  .lbl{flex:1}
+  .lbl small{display:block;color:var(--muted);font-size:13px}
+  .cat{font-family:'Fraunces',serif;font-size:16px;margin:14px 0 4px;color:var(--ink2)}
+
+  /* kitty */
+  .bal{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)}
+  .bal:last-child{border-bottom:0}
+  .pos{color:#1E7F5B;font-weight:600}.neg{color:var(--danger);font-weight:600}
+  .big{font-family:'Fraunces',serif;font-size:32px;font-weight:300;line-height:1}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--white);font-size:14px}
+  .chip.on{background:var(--ink);color:var(--white);border-color:var(--ink)}
+
+  /* ask */
+  .msg{padding:10px 12px;border-radius:12px;margin-bottom:8px;font-size:15px;max-width:92%;white-space:pre-wrap}
+  .msg.u{background:var(--ink);color:var(--white);margin-left:auto;border-bottom-right-radius:4px}
+  .msg.a{background:var(--sand);border-bottom-left-radius:4px}
+  .msg.a small{display:block;color:var(--muted);margin-top:6px;font-size:12px}
+  .msg.thinking{color:var(--muted);font-style:italic}
+
+  /* tabs */
+  nav{position:fixed;left:0;right:0;bottom:0;background:var(--white);border-top:1px solid var(--line);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:20}
+  nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;font-size:11px;color:var(--muted);border-radius:10px}
+  nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  nav button.on{color:var(--ink);font-weight:700}
+
+  /* modal */
+  .modal{position:fixed;inset:0;background:rgba(15,59,71,.55);display:none;align-items:flex-end;z-index:30}
+  .modal.on{display:flex}
+  .sheet{background:var(--sand);width:100%;border-top-left-radius:22px;border-top-right-radius:22px;padding:18px 18px calc(22px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto}
+  .sheet h3{font-size:20px;margin-bottom:12px}
+  label.f{display:block;font-size:13px;color:var(--muted);margin:8px 0 4px}
+  .toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--ink);color:var(--white);padding:9px 16px;border-radius:999px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:40}
+  .toast.on{opacity:1}
+  .tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 30px}
+  #printView{display:none}
+  @media print{
+    body{background:#fff;padding:0;color:#111}
+    .hero,main,nav,.modal,.toast{display:none!important}
+    #printView{display:block;font-family:'Karla',system-ui,sans-serif;font-size:11pt;line-height:1.4;padding:0;max-width:none}
+    #printView h1{font-family:'Fraunces',Georgia,serif;font-size:26pt;font-weight:400;margin:0 0 2pt}
+    #printView .sub{color:#555;margin-bottom:14pt}
+    #printView h2{font-family:'Fraunces',Georgia,serif;font-size:15pt;font-weight:500;margin:14pt 0 4pt;padding-bottom:2pt;border-bottom:1px solid #999;page-break-after:avoid}
+    #printView .day{page-break-inside:avoid;margin-bottom:10pt}
+    #printView .day h3{font-family:'Fraunces',Georgia,serif;font-size:12.5pt;font-weight:500;margin:8pt 0 2pt}
+    #printView .theme{color:#B84E2E;font-size:10.5pt;margin-bottom:3pt}
+    #printView .slot{margin:0 0 2pt 0}
+    #printView .slot b{display:inline-block;width:70pt;color:#555;font-weight:500}
+    #printView .slot span{display:inline-block;vertical-align:top;width:calc(100% - 76pt)}
+    #printView small{color:#666}
+    #printView table{border-collapse:collapse;width:100%;font-size:10.5pt}
+    #printView td,#printView th{text-align:left;padding:2pt 6pt 2pt 0;vertical-align:top;border-bottom:1px solid #e5e5e5}
+    #printView th{font-weight:600;color:#555}
+    #printView .cols{columns:2;column-gap:20pt}
+    #printView .cols div{break-inside:avoid}
+    #printView ul{margin:0 0 0 14pt;padding:0}
+    #printView .foot{margin-top:18pt;font-size:9pt;color:#777}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media (min-width:700px){main{max-width:560px;margin:0 auto}.hero{max-width:560px;margin:0 auto;border-radius:0 0 26px 26px}nav{max-width:560px;margin:0 auto;border-left:1px solid var(--line);border-right:1px solid var(--line)}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="sea"></div><div class="sun"></div>
+  <div class="kicker">Nusa Lembongan · two villas, one crew</div>
+  <h1>Nusa del Rey</h1>
+  <div class="count"><b id="countNum">0</b><span id="countLbl">days to go</span></div>
+  <div class="dates">Sat 14 Nov, 3:00 pm  to  Sat 21 Nov, 10:00 am</div>
+</header>
+
+<main>
+
+<!-- TRIP -->
+<section data-tab="trip" class="on">
+  <div class="card tint">
+    <h3>Share the plan</h3>
+    <p class="sub" style="margin-bottom:10px">Whoever is planning builds the agenda here, then sends both files to the group. The PDF is for reading, the backup file loads the full plan into everyone's app.</p>
+    <div class="stack">
+      <button class="btn full coral" onclick="makePDF()">Create PDF of the plan</button>
+      <div class="grid2">
+        <button class="btn soft" onclick="exportData()">Save backup file</button>
+        <button class="btn soft" onclick="document.getElementById('importFile').click()">Load backup file</button>
+      </div>
+      <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(this)">
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Trip at a glance</h3>
+    <div class="fact"><span>Sat 14 Nov</span><span>Cuffs on JQ 110, land 10:30. Fast boat from Sanur, check in to both villas</span></div>
+    <div class="fact"><span>14 to 21 Nov</span><span>Seven nights on Lembongan, 18 people across two villas next door to each other</span></div>
+    <div class="fact"><span>Sat 21 Nov</span><span>Check out, boat to Sanur, Holiday Inn Bali Sanur</span></div>
+    <div class="fact"><span>Sun 22 Nov</span><span>Fly home, Cuffs on JQ 107 at 15:05</span></div>
+    <p class="sub" style="margin-top:10px">Activities and dress themes are for everyone. Chef dinners and buffets happen at Nusa del Rey, the main villa.</p>
+  </div>
+
+  <div class="card">
+    <h3>Nusa del Rey <span class="pill lagoon">main villa</span></h3>
+    <p class="sub" style="margin-bottom:8px">Sandy Bay, oceanfront on the quiet west side. Hosted by Rachel Anne with co-hosts Rachel and Ita. Three pavilions, infinity pool, fire pit, six staff. Booked on Airbnb.</p>
+    <div class="fact"><span>Sleeps</span><span>12 · 5 bedrooms · 8 beds · 5 baths</span></div>
+    <div class="fact"><span>Beds</span><span>4 king rooms + 1 room of 4 singles</span></div>
+    <div class="fact"><span>Included</span><span>Daily breakfast, harbour pickup</span></div>
+    <div class="fact"><span>Extra</span><span>Lite bites, minibar, chef dinners</span></div>
+    <div class="fact"><span>Check-in</span><span>Sat 14 Nov from 3:00 pm</span></div>
+    <div class="fact"><span>Checkout</span><span>Sat 21 Nov by 10:00 am</span></div>
+    <div class="fact"><span>Heads up</span><span>Stairs and split levels, patchy Wi-Fi</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Villa Waru <span class="pill">second villa, next door</span></h3>
+    <p class="sub" style="margin-bottom:8px">Four bedroom beach-front villa on Sunset Beach with its own pool, sea views and kitchen. Booked on Booking.com under Tammy's name.</p>
+    <div class="fact"><span>Sleeps</span><span>8 adults · 4 bedrooms</span></div>
+    <div class="fact"><span>Included</span><span>Breakfast, Wi-Fi, parking</span></div>
+    <div class="fact"><span>Check-in</span><span>Sat 14 Nov from 1:00 pm</span></div>
+    <div class="fact"><span>Checkout</span><span>Sat 21 Nov by 11:30 am</span></div>
+    <div class="fact"><span>Price</span><span>About AUD 3,146 (IDR 39.69M), paid at the villa in cash, IDR</span></div>
+    <div class="fact"><span>Cancellation</span><span>Free until 10 Nov, full charge from 11 Nov</span></div>
+    <div class="fact"><span>Villa phone</span><span>+62 812 3819 023</span></div>
+    <div class="fact"><span>Booking ref</span><span>6053.606.982 (Tammy has the PIN)</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Holiday Inn Bali Sanur <span class="pill">night after</span></h3>
+    <p class="sub" style="margin-bottom:8px">Sat 21 to Sun 22 Nov, near the Sanur boat harbour for the trip home. Booked on Booking.com under Tammy's name.</p>
+    <div class="fact"><span>Room</span><span>Standard room, 2 adults, extra-large double requested</span></div>
+    <div class="fact"><span>Check-in</span><span>From 3:00 pm, checkout by 12:00 pm</span></div>
+    <div class="fact"><span>Price</span><span>About AUD 122, no breakfast</span></div>
+    <div class="fact"><span>Cancellation</span><span>Free until 21 Oct, full charge after</span></div>
+    <div class="fact"><span>Hotel phone</span><span>+62 361 2098999</span></div>
+    <div class="fact"><span>Booking ref</span><span>5567.825.564 (Tammy has the PIN)</span></div>
+    <p class="sub" style="margin-top:8px">Everyone else still needs a bed in Sanur for the 21st, or a boat that connects to an evening flight.</p>
+  </div>
+
+  <div class="card">
+    <div class="row between"><h3>Flights</h3><button class="btn sm" onclick="openFlight()">Add</button></div>
+    <p class="sub" style="margin-bottom:6px">Everyone adds their own so we know who lands when and who shares a boat.</p>
+    <div id="flightList"></div>
+  </div>
+
+  <div class="card">
+    <h3>Getting there</h3>
+    <p class="sub" style="margin-bottom:10px">Perth to Denpasar, then a fast boat from Sanur (35 to 45 min). The villa recommends Rocky Fast Cruise (dry jetty landing, best with kids and luggage, departs Sanur 10 am, 12 pm, 2 pm, 5 pm) or Setia Fast Boat (comfiest ride, beach landing, departs 9:30 am, 1:30 pm, 5 pm). Send the boat details to the villa and staff meet you at the harbour.</p>
+    <div class="stack" id="travelFields"></div>
+  </div>
+
+  <div class="card">
+    <h3>Links</h3>
+    <a class="link" href="https://www.airbnb.com.au/rooms/1216370856960241514" target="_blank">Airbnb listing<small>Booking, messages to Rachel Anne</small></a>
+    <a class="link" href="https://linktr.ee/nusadelrey" target="_blank">Nusa del Rey hub<small>Menus, experiences, WhatsApp</small></a>
+    <a class="link" href="https://nusadelrey.my.canva.site/getting-to-nusa-del-rey" target="_blank">Getting to Nusa del Rey<small>Boats and transfers</small></a>
+    <a class="link" href="https://nusadelrey.my.canva.site/welcome-book" target="_blank">Welcome book</a>
+    <a class="link" href="https://nusadelrey.my.canva.site/celebrations-at-nusa-del-rey" target="_blank">Celebrations<small>For anything worth marking</small></a>
+    <a class="link" href="https://nusadelrey.my.canva.site/cocktail-menu" target="_blank">Cocktail menu</a>
+    <a class="link" href="https://nusadelrey.my.canva.site/lite-bites" target="_blank">Lite bites menu</a>
+  </div>
+
+  <div class="card">
+    <h3>Notes</h3>
+    <textarea id="tripNotes" placeholder="Anything the whole group should know"></textarea>
+  </div>
+
+  <div class="tools">
+    <button class="btn ghost sm" onclick="resetAll()">Reset everything</button>
+  </div>
+</section>
+
+<!-- DAYS -->
+<section data-tab="days">
+  <div class="daystrip" id="dayStrip"></div>
+  <div class="card" id="dayCard"></div>
+  <div class="card">
+    <h3>Ideas for the island</h3>
+    <p class="sub" style="margin-bottom:6px">Tap one to add it to the selected day.</p>
+    <div id="ideaList"></div>
+  </div>
+</section>
+
+<!-- CREW -->
+<section data-tab="crew">
+  <div class="row between"><h2>Who's coming</h2><button class="btn sm" onclick="openPerson()">Add</button></div>
+  <div class="card" id="crewList"></div>
+  <h2>Rooms</h2>
+  <div class="card" id="roomList"></div>
+</section>
+
+<!-- PACK -->
+<section data-tab="pack">
+  <div class="row between"><h2>Packing</h2><button class="btn sm" onclick="openPack()">Add</button></div>
+  <div class="card" id="packList"></div>
+</section>
+
+<!-- KITTY -->
+<section data-tab="kitty">
+  <div class="row between"><h2>Kitty</h2><button class="btn sm" onclick="openExpense()">Add</button></div>
+  <div class="card tint">
+    <div class="sub">Total spent</div>
+    <div class="big" id="kittyTotal">$0</div>
+    <div class="sub" style="margin-top:6px">Amounts in AUD. Balances show who is owed and who owes, split across the people you tag on each expense.</div>
+  </div>
+  <div class="card"><h3>Balances</h3><div id="balances"></div></div>
+  <div class="card"><h3>Expenses</h3><div id="expList"></div></div>
+</section>
+
+<!-- TODO -->
+<section data-tab="todo">
+  <div class="row between"><h2>Before we go</h2><button class="btn sm" onclick="openTodo()">Add</button></div>
+  <div class="card" id="todoList"></div>
+</section>
+
+<!-- ASK -->
+<section data-tab="ask">
+  <h2>Ask about the villa</h2>
+  <p class="sub" style="margin-bottom:12px">Answers come from the Airbnb listing and the full Nusa del Rey booklet: boats, menus, chefs, activities, spa, transport.</p>
+  <div class="card" id="chatCard">
+    <div id="chatLog"></div>
+    <div class="row" style="margin-top:10px">
+      <input id="askIn" placeholder="What time is breakfast? Which boat do they recommend?" onkeydown="if(event.key==='Enter')ask()">
+      <button class="btn" id="askBtn" onclick="ask()">Ask</button>
+    </div>
+    <div class="chips" style="margin-top:10px" id="askChips"></div>
+  </div>
+
+  <div class="card">
+    <h3>What it knows</h3>
+    <div id="knowList"></div>
+  </div>
+
+  <div class="card" id="setupCard">
+    <h3>Optional</h3>
+    <p class="sub" style="margin-bottom:8px">Answers already work from the built-in notes. Add an Anthropic API key here if you want fuller, conversational replies. It stays on this device.</p>
+    <input id="apiKey" type="password" placeholder="sk-ant-...">
+  </div>
+</section>
+
+</main>
+
+<nav>
+  <button data-go="trip" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Trip</button>
+  <button data-go="days"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Days</button>
+  <button data-go="crew"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-5-6.3"/></svg>Crew</button>
+  <button data-go="pack"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3M3 13h18"/></svg>Pack</button>
+  <button data-go="kitty"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/></svg>Kitty</button>
+  <button data-go="todo"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>To do</button>
+  <button data-go="ask"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5M12 17h.01"/></svg>Ask</button>
+</nav>
+
+<div id="printView"></div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="sheet" id="sheet"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- state ---------- */
+var KEY='nusa-del-rey-2026';
+var DAYS=[
+  {d:'2026-11-14',lbl:'Sat',num:14,title:'Arrive'},
+  {d:'2026-11-15',lbl:'Sun',num:15,title:''},
+  {d:'2026-11-16',lbl:'Mon',num:16,title:''},
+  {d:'2026-11-17',lbl:'Tue',num:17,title:''},
+  {d:'2026-11-18',lbl:'Wed',num:18,title:''},
+  {d:'2026-11-19',lbl:'Thu',num:19,title:''},
+  {d:'2026-11-20',lbl:'Fri',num:20,title:'Last night'},
+  {d:'2026-11-21',lbl:'Sat',num:21,title:'Checkout'}
+];
+var SLOTS=['Morning','Afternoon','Evening'];
+var ROOMS=['Nusa del Rey · Bedroom 1 (king)','Nusa del Rey · Bedroom 2 (king)','Nusa del Rey · Bedroom 3 (king)','Nusa del Rey · Bedroom 4 (king)','Nusa del Rey · Bedroom 5 (4 singles)','Villa Waru · Bedroom 1','Villa Waru · Bedroom 2','Villa Waru · Bedroom 3','Villa Waru · Bedroom 4'];
+var IDEAS=[
+  {n:'Private snorkel boat, Captain Yin Yang',s:'IDR 3.1M for the boat, half day, gear included. Cheaper than shared for ten',u:'https://nusadelrey.my.canva.site/snorkelling-tour'},
+  {n:'Shared snorkel tour',s:'IDR 350K a head, 7:30 to 11:30, Manta Point and Penida coast',u:'https://nusadelrey.my.canva.site/shared-snorkelling-tour'},
+  {n:'Scuba with Siren Diving',s:'2 dive trip IDR 1.7M, try dive IDR 2M, Manta Point surcharge',u:'https://nusadelrey.my.canva.site/scubadiving'},
+  {n:'Guided island tour',s:'IDR 650K, 3 to 4 hours: Devil\'s Tear, Dream Beach, mangroves, Yellow Bridge',u:'https://nusadelrey.my.canva.site/islandtour'},
+  {n:'Mangrove boat ride',s:'45 min to 1 hour, all ages, best in the morning',u:'https://nusadelrey.my.canva.site/seaweed-farm-experience'},
+  {n:'Seaweed farm experience',s:'IDR 350K a head, hands on, morning is best',u:'https://nusadelrey.my.canva.site/seaweed-farm-experience'},
+  {n:'Spear fishing',s:'Early start, calm mornings',u:'https://nusadelrey.my.canva.site/spear-fishing'},
+  {n:'In-villa spa afternoon',s:'Balinese massage 60 min IDR 220K, two tables so book in pairs',u:'https://nusadelrey.my.canva.site/spatreatments'},
+  {n:'Nyomans Warung buffet night',s:'At Nusa del Rey. IDR 100K to 225K a head, 24 hours notice',u:'https://nusadelrey.my.canva.site/nyomans-warung'},
+  {n:'Private chef dinner',s:'At Nusa del Rey. The Feast or Chef Puspa, book through the villa',u:'https://nusadelrey.my.canva.site/private-chef-puspa'},
+  {n:'Evening cocktail session',s:'Bar closes 5 pm unless pre-booked, IDR 1M minimum spend',u:'https://nusadelrey.my.canva.site/cocktail-menu'},
+  {n:'Hire buggies for the day',s:'6 to 7 seater IDR 1M for 4 to 5 hours, or IDR 1.5M for 24 hours',u:'https://nusadelrey.my.canva.site/buggy-hire'},
+  {n:'Hire scooters',s:'Scoopy IDR 100K a day, Nmax IDR 150K',u:'https://nusadelrey.my.canva.site/scooter-hire'},
+  {n:'Sunset at Devil\'s Tear',s:'Blowhole and cliffs, IDR 25K entry, 15 min by scooter'},
+  {n:'Dream Beach swim',s:'White sand cove, strong shore break, watch the kids'},
+  {n:'Yellow Bridge to Ceningan',s:'Blue Lagoon and the cliff jump at Mahana Point'},
+  {n:'Sandy Bay Beach Club',s:'Lunch and a swim, walking distance from the villa'},
+  {n:'Birthday setup at the villa',s:'Balloon display IDR 500K, mandala flowers IDR 200K, cakes from IDR 250K',u:'https://nusadelrey.my.canva.site/celebrations-at-nusa-del-rey'},
+  {n:'Fire pit night at the villa',s:'Nothing on the agenda'}
+];
+var FLIGHTS_DEFAULT=[
+  {id:'f1',who:'The Cuffs',dir:'Out',no:'JQ 110',route:'PER to DPS',date:'2026-11-14',dep:'06:50',arr:'10:30',n:'Jetstar A321LR, Perth T1 to Denpasar T1'},
+  {id:'f2',who:'The Cuffs',dir:'Home',no:'JQ 107',route:'DPS to PER',date:'2026-11-22',dep:'15:05',arr:'18:40',n:'Jetstar A321LR, Denpasar T1 to Perth T1'}
+];
+var PACK_DEFAULT=[
+  ['Documents','Passport (6+ months validity)'],['Documents','Visa on arrival cash or e-VOA'],['Documents','Travel insurance details'],['Documents','Airbnb booking and boat tickets'],
+  ['Beach','Reef-safe sunscreen'],['Beach','Rash vests and hats'],['Beach','Snorkel mask (own fit is better)'],['Beach','Reef shoes'],['Beach','Dry bag for the boat'],
+  ['Health','Motion sickness tablets for the fast boat'],['Health','First aid, Imodium, rehydration sachets'],['Health','Mosquito repellent'],
+  ['Villa','Bluetooth speaker'],['Villa','Cards and games for the fire pit'],['Villa','Power bank and Indonesian adapter'],['Villa','Camera gear'],
+  ['Money','Cash IDR for scooters and warungs'],['Money','Villa Waru is cash only, IDR 39.69M, plan the withdrawal'],['Money','Small AUD for the kitty']
+];
+var TODO_DEFAULT=[
+  {t:'Send boat details to Rachel Anne for harbour pickup',d:'2026-11-07'},
+  {t:'Book fast boat Sanur to Lembongan',d:'2026-10-15'},
+  {t:'Everyone adds their flights to the app',d:'2026-10-15'},
+  {t:'Confirm who is in which room',d:'2026-10-31'},
+  {t:'Book snorkelling boat and any chef dinners',d:'2026-11-01'},
+  {t:'Check passports have 6 months validity',d:'2026-10-01'},
+  {t:'Arrange travel insurance for the group',d:'2026-10-15'},
+  {t:'Pre-book buggies and scooters through the villa',d:'2026-11-01'}
+];
+
+var S=load();
+function fresh(){
+  return {
+    travel:{boat:'',boatBack:'',hotelBali:'',hotelAfter:''},
+    flights:FLIGHTS_DEFAULT.slice(),
+    notes:'',
+    plans:{},          // dayIndex -> {slot -> [ {t,n} ]}
+    themes:{},         // dayIndex -> dress theme
+    people:[],         // {id,name,arrive,room,flight}
+    pack:PACK_DEFAULT.map(function(p,i){return {id:'p'+i,cat:p[0],t:p[1],done:false,who:''}}),
+    exp:[],            // {id,desc,amt,paid,split:[ids],date}
+    todo:TODO_DEFAULT.map(function(t,i){return {id:'t'+i,t:t.t,d:t.d,done:false}}),
+  };
+}
+function load(){try{var s=JSON.parse(localStorage.getItem(KEY));if(s&&s.pack){s.themes=s.themes||{};if(!s.flights)s.flights=FLIGHTS_DEFAULT.slice();return s;}}catch(e){}return fresh();}
+function save(){localStorage.setItem(KEY,JSON.stringify(S));}
+function uid(){return Math.random().toString(36).slice(2,9);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]});}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._x);t._x=setTimeout(function(){t.classList.remove('on')},1600);}
+
+/* ---------- countdown ---------- */
+(function(){
+  var now=new Date();var ci=new Date(2026,10,14,15,0);var co=new Date(2026,10,21,10,0);
+  var n=document.getElementById('countNum'),l=document.getElementById('countLbl');
+  if(now<ci){n.textContent=Math.ceil((ci-now)/86400000);l.textContent='days to go';}
+  else if(now<co){n.textContent=Math.ceil((co-now)/86400000);l.textContent='days left on the island';}
+  else{n.textContent='';l.textContent='That was a good week.';}
+})();
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('nav button').forEach(function(b){b.onclick=function(){go(b.dataset.go)}});
+function go(t){
+  document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.go===t)});
+  document.querySelectorAll('section[data-tab]').forEach(function(s){s.classList.toggle('on',s.dataset.tab===t)});
+  window.scrollTo(0,0);
+}
+
+/* ---------- trip ---------- */
+function renderTrip(){
+  var f=[['boat','Fast boat Sanur to Lembongan, Sat 14 Nov','Setia 1:30 pm or Rocky 2:00 pm suit a 10:30 landing'],['boatBack','Fast boat back to Sanur, Sat 21 Nov','Setia 12:30 pm or Rocky 1:00 pm work with an 11:30 checkout'],['hotelBali','Night in Bali before, only if your flight lands late','Hotel near Sanur'],['hotelAfter','Night in Sanur, Sat 21 Nov','Holiday Inn Bali Sanur is booked for Tammy and Brad']];
+  document.getElementById('travelFields').innerHTML=f.map(function(x){return '<div><label class="f">'+x[1]+'</label><input data-tf="'+x[0]+'" value="'+esc(S.travel[x[0]]||'')+'" placeholder="'+x[2]+'"></div>'}).join('');
+  document.querySelectorAll('[data-tf]').forEach(function(i){i.oninput=function(){S.travel[i.dataset.tf]=i.value;save();}});
+  var n=document.getElementById('tripNotes');n.value=S.notes;n.oninput=function(){S.notes=n.value;save();};
+  var fl=S.flights.slice().sort(function(a,b){return (a.date+a.dep)>(b.date+b.dep)?1:-1});
+  document.getElementById('flightList').innerHTML=fl.length?fl.map(function(f){return '<div class="item"><div class="lbl"><b>'+esc(f.who)+' · '+esc(f.no)+' '+esc(f.route)+'</b><small>'+(f.date?fmtDate(f.date)+', ':'')+esc(f.dep)+(f.arr?' to '+esc(f.arr):'')+(f.n?' · '+esc(f.n):'')+'</small></div><button class="icon" aria-label="Edit" onclick="openFlight(\''+f.id+'\')">✎</button><button class="icon del" aria-label="Remove" onclick="rmFlight(\''+f.id+'\')">×</button></div>'}).join(''):'<div class="empty">No flights yet.</div>';
+}
+function openFlight(id){
+  var f=id?S.flights.filter(function(x){return x.id===id})[0]:{who:'',dir:'Out',no:'',route:'PER to DPS',date:'2026-11-14',dep:'',arr:'',n:''};
+  sheet('<h3>'+(id?'Edit flight':'Add a flight')+'</h3>'+
+    '<label class="f">Who</label><input id="fl_w" value="'+esc(f.who)+'" placeholder="The Smiths, or your name">'+
+    '<div class="grid2"><div><label class="f">Flight number</label><input id="fl_no" value="'+esc(f.no)+'" placeholder="JQ 110"></div><div><label class="f">Route</label><input id="fl_r" value="'+esc(f.route)+'" placeholder="PER to DPS"></div></div>'+
+    '<label class="f">Date</label><input id="fl_d" type="date" value="'+esc(f.date)+'">'+
+    '<div class="grid2"><div><label class="f">Departs</label><input id="fl_dep" value="'+esc(f.dep)+'" placeholder="06:50"></div><div><label class="f">Arrives</label><input id="fl_arr" value="'+esc(f.arr)+'" placeholder="10:30"></div></div>'+
+    '<label class="f">Notes</label><input id="fl_n" value="'+esc(f.n)+'" placeholder="Airline, terminal, booking ref">'+
+    '<button class="btn full" style="margin-top:14px" onclick="saveFlight(\''+(id||'')+'\')">Save</button>');
+}
+function saveFlight(id){var w=v('fl_w'),no=v('fl_no');if(!w||!no)return;var o={id:id||uid(),who:w,no:no,route:v('fl_r'),date:v('fl_d'),dep:v('fl_dep'),arr:v('fl_arr'),n:v('fl_n')};if(id){S.flights=S.flights.map(function(f){return f.id===id?o:f})}else S.flights.push(o);save();renderTrip();closeModal();}
+function rmFlight(id){if(!confirm('Remove this flight?'))return;S.flights=S.flights.filter(function(f){return f.id!==id});save();renderTrip();}
+
+/* ---------- days ---------- */
+var curDay=0;
+function renderDays(){
+  document.getElementById('dayStrip').innerHTML=DAYS.map(function(d,i){return '<button class="daychip'+(i===curDay?' on':'')+(S.themes[i]?' themed':'')+'" onclick="curDay='+i+';renderDays()"><small>'+d.lbl+'</small><b>'+d.num+'</b><small>Nov</small></button>'}).join('');
+  var d=DAYS[curDay];var p=S.plans[curDay]||{};
+  var h='<div class="row between"><h3>'+d.lbl+' '+d.num+' Nov'+(d.title?' <span class="sub">· '+d.title+'</span>':'')+'</h3></div>';
+  if(curDay===0)h+='<p class="sub">Check-in from 3:00 pm. Villa staff meet the boat at the harbour.</p>';
+  if(curDay===7)h+='<p class="sub">Checkout by 10:00 am. Breakfast first, then the boat back to Sanur.</p>';
+  h+='<div style="margin:10px 0 4px"><label class="f">Dress theme</label><input value="'+esc(S.themes[curDay]||'')+'" placeholder="White linen, tropical prints, 70s disco..." oninput="S.themes['+curDay+']=this.value;save();" onchange="renderDays()"></div>';
+  SLOTS.forEach(function(sl){
+    var items=p[sl]||[];
+    h+='<div class="slot"><div class="name">'+sl+'</div>';
+    h+=items.map(function(it,j){return '<div class="plan"><div class="t">'+esc(it.t)+(it.n?'<small>'+esc(it.n)+'</small>':'')+'</div><button class="icon del" aria-label="Remove" onclick="rmPlan('+curDay+',\''+sl+'\','+j+')">×</button></div>'}).join('');
+    h+='<button class="btn soft sm" onclick="openPlan(\''+sl+'\')">+ Add</button></div>';
+  });
+  document.getElementById('dayCard').innerHTML=h;
+  document.getElementById('ideaList').innerHTML=IDEAS.map(function(x,i){return '<div class="idea"><div><b>'+esc(x.n)+'</b><small>'+esc(x.s)+(x.u?' · <a href="'+x.u+'" target="_blank">details</a>':'')+'</small></div><button class="btn sm" onclick="openPlan(null,'+i+')">Add</button></div>'}).join('');
+}
+function addPlan(day,slot,t,n){S.plans[day]=S.plans[day]||{};S.plans[day][slot]=S.plans[day][slot]||[];S.plans[day][slot].push({t:t,n:n||''});save();renderDays();toast('Added to '+DAYS[day].lbl+' '+DAYS[day].num);}
+function rmPlan(day,slot,j){S.plans[day][slot].splice(j,1);save();renderDays();}
+function openPlan(slot,ideaIdx){
+  var idea=ideaIdx!=null?IDEAS[ideaIdx]:null;
+  sheet('<h3>'+(idea?'Add to a day':'Add a plan')+'</h3>'+
+    '<label class="f">What</label><input id="pl_t" value="'+esc(idea?idea.n:'')+'" placeholder="Snorkel trip, dinner, lazy pool day">'+
+    '<label class="f">Day</label><select id="pl_d">'+DAYS.map(function(d,i){return '<option value="'+i+'"'+(i===curDay?' selected':'')+'>'+d.lbl+' '+d.num+' Nov</option>'}).join('')+'</select>'+
+    '<label class="f">When</label><select id="pl_s">'+SLOTS.map(function(s){return '<option'+(s===slot?' selected':'')+'>'+s+'</option>'}).join('')+'</select>'+
+    '<label class="f">Notes</label><input id="pl_n" value="'+esc(idea?idea.s:'')+'" placeholder="Time, who is booking, cost">'+
+    '<button class="btn full" style="margin-top:14px" onclick="var t=v(\'pl_t\');if(!t)return;addPlan(+v(\'pl_d\'),v(\'pl_s\'),t,v(\'pl_n\'));closeModal()">Add to plan</button>');
+}
+
+/* ---------- crew ---------- */
+function renderCrew(){
+  var el=document.getElementById('crewList');
+  el.innerHTML=S.people.length?S.people.map(function(p){return '<div class="item"><div class="lbl"><b>'+esc(p.name)+'</b><small>'+[p.room,p.arrive,p.flight].filter(Boolean).map(esc).join(' · ')+'</small></div><button class="icon" aria-label="Edit" onclick="openPerson(\''+p.id+'\')">✎</button><button class="icon del" aria-label="Remove" onclick="rmPerson(\''+p.id+'\')">×</button></div>'}).join(''):'<div class="empty">Add everyone coming. Eighteen beds across the two villas.</div>';
+  var rh='';var lastV='';ROOMS.forEach(function(r){var v=r.split(' · ')[0];if(v!==lastV){rh+='<div class="cat">'+v+'</div>';lastV=v;}var who=S.people.filter(function(p){return p.room===r}).map(function(p){return esc(p.name)});rh+='<div class="fact"><span>'+r.split(' · ')[1]+'</span><span>'+(who.length?who.join(', '):'<span class="sub">open</span>')+'</span></div>'});
+  document.getElementById('roomList').innerHTML=rh;
+}
+function openPerson(id){
+  var p=id?S.people.filter(function(x){return x.id===id})[0]:{name:'',arrive:'',room:'',flight:''};
+  sheet('<h3>'+(id?'Edit person':'Add person')+'</h3>'+
+    '<label class="f">Name</label><input id="pe_n" value="'+esc(p.name)+'">'+
+    '<label class="f">Room</label><select id="pe_r"><option value="">Not yet</option>'+ROOMS.map(function(r){return '<option'+(r===p.room?' selected':'')+'>'+r+'</option>'}).join('')+'</select>'+
+    '<label class="f">Arriving</label><input id="pe_a" value="'+esc(p.arrive)+'" placeholder="Sat 14 Nov, 11:00 boat">'+
+    '<label class="f">Flight or travel notes</label><input id="pe_f" value="'+esc(p.flight)+'">'+
+    '<button class="btn full" style="margin-top:14px" onclick="savePerson(\''+(id||'')+'\')">Save</button>');
+}
+function savePerson(id){var n=v('pe_n');if(!n)return;var o={id:id||uid(),name:n,room:v('pe_r'),arrive:v('pe_a'),flight:v('pe_f')};if(id){S.people=S.people.map(function(p){return p.id===id?o:p})}else S.people.push(o);save();renderCrew();renderKitty();closeModal();}
+function rmPerson(id){if(!confirm('Remove this person?'))return;S.people=S.people.filter(function(p){return p.id!==id});save();renderCrew();renderKitty();}
+
+/* ---------- pack ---------- */
+function renderPack(){
+  var cats=[];S.pack.forEach(function(p){if(cats.indexOf(p.cat)<0)cats.push(p.cat)});
+  var done=S.pack.filter(function(p){return p.done}).length;
+  var h='<div class="sub" style="margin-bottom:4px">'+done+' of '+S.pack.length+' packed</div>';
+  cats.forEach(function(c){
+    h+='<div class="cat">'+esc(c)+'</div>';
+    S.pack.filter(function(p){return p.cat===c}).forEach(function(p){
+      h+='<div class="item'+(p.done?' done':'')+'"><button class="chk'+(p.done?' on':'')+'" onclick="togglePack(\''+p.id+'\')">'+(p.done?'✓':'')+'</button><div class="lbl">'+esc(p.t)+(p.who?'<small>'+esc(p.who)+'</small>':'')+'</div><button class="icon del" aria-label="Remove" onclick="rmPack(\''+p.id+'\')">×</button></div>';
+    });
+  });
+  document.getElementById('packList').innerHTML=h;
+}
+function togglePack(id){S.pack.forEach(function(p){if(p.id===id)p.done=!p.done});save();renderPack();}
+function rmPack(id){S.pack=S.pack.filter(function(p){return p.id!==id});save();renderPack();}
+function openPack(){
+  var cats=[];S.pack.forEach(function(p){if(cats.indexOf(p.cat)<0)cats.push(p.cat)});
+  sheet('<h3>Add to packing list</h3><label class="f">Item</label><input id="pk_t"><label class="f">Category</label><input id="pk_c" list="pkcats" value="Villa"><datalist id="pkcats">'+cats.map(function(c){return '<option>'+esc(c)+'</option>'}).join('')+'</datalist><label class="f">Who is bringing it</label><input id="pk_w" placeholder="Optional"><button class="btn full" style="margin-top:14px" onclick="var t=v(\'pk_t\');if(!t)return;S.pack.push({id:uid(),cat:v(\'pk_c\')||\'Other\',t:t,done:false,who:v(\'pk_w\')});save();renderPack();closeModal()">Add</button>');
+}
+
+/* ---------- kitty ---------- */
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-AU',{minimumFractionDigits:0,maximumFractionDigits:2});}
+function renderKitty(){
+  var total=S.exp.reduce(function(a,e){return a+(+e.amt||0)},0);
+  document.getElementById('kittyTotal').textContent=money(total);
+  var bal={};S.people.forEach(function(p){bal[p.id]=0});
+  S.exp.forEach(function(e){if(bal[e.paid]!=null)bal[e.paid]+=+e.amt;var sp=e.split.filter(function(id){return bal[id]!=null});if(sp.length){var each=e.amt/sp.length;sp.forEach(function(id){bal[id]-=each})}});
+  document.getElementById('balances').innerHTML=S.people.length?S.people.map(function(p){var b=bal[p.id];return '<div class="bal"><span>'+esc(p.name)+'</span><span class="'+(b>0.005?'pos':b<-0.005?'neg':'')+'">'+(b>0.005?'is owed '+money(b):b<-0.005?'owes '+money(-b):'square')+'</span></div>'}).join(''):'<div class="empty">Add people in Crew first, then expenses will split between them.</div>';
+  document.getElementById('expList').innerHTML=S.exp.length?S.exp.slice().reverse().map(function(e){var payer=(S.people.filter(function(p){return p.id===e.paid})[0]||{}).name||'someone';return '<div class="item"><div class="lbl"><b>'+esc(e.desc)+'</b><small>'+esc(payer)+' paid'+(e.date?' · '+esc(e.date):'')+' · split '+e.split.length+' ways</small></div><b>'+money(+e.amt)+'</b><button class="icon del" aria-label="Remove" onclick="rmExp(\''+e.id+'\')">×</button></div>'}).join(''):'<div class="empty">Boat, buggies, chef dinners, the bar tab. Log it here and the balances sort themselves out.</div>';
+}
+function openExpense(){
+  if(!S.people.length){toast('Add people in Crew first');go('crew');return;}
+  sheet('<h3>Add expense</h3><label class="f">What</label><input id="ex_d" placeholder="Snorkel boat"><label class="f">Amount (AUD)</label><input id="ex_a" type="number" inputmode="decimal" placeholder="0"><label class="f">Paid by</label><select id="ex_p">'+S.people.map(function(p){return '<option value="'+p.id+'">'+esc(p.name)+'</option>'}).join('')+'</select><label class="f">Split between</label><div class="chips" id="ex_s">'+S.people.map(function(p){return '<button class="chip on" data-id="'+p.id+'" onclick="this.classList.toggle(\'on\')">'+esc(p.name)+'</button>'}).join('')+'</div><label class="f">Date</label><input id="ex_dt" placeholder="Optional"><button class="btn full" style="margin-top:14px" onclick="saveExp()">Add</button>');
+}
+function saveExp(){var d=v('ex_d'),a=parseFloat(v('ex_a'));if(!d||!(a>0))return;var sp=[].slice.call(document.querySelectorAll('#ex_s .chip.on')).map(function(c){return c.dataset.id});if(!sp.length)return;S.exp.push({id:uid(),desc:d,amt:a,paid:v('ex_p'),split:sp,date:v('ex_dt')});save();renderKitty();closeModal();}
+function rmExp(id){S.exp=S.exp.filter(function(e){return e.id!==id});save();renderKitty();}
+
+/* ---------- todo ---------- */
+function renderTodo(){
+  var list=S.todo.slice().sort(function(a,b){return (a.done-b.done)||((a.d||'9')>(b.d||'9')?1:-1)});
+  document.getElementById('todoList').innerHTML=list.length?list.map(function(t){var due=t.d?fmtDate(t.d):'';var late=t.d&&!t.done&&new Date(t.d)<new Date();return '<div class="item'+(t.done?' done':'')+'"><button class="chk'+(t.done?' on':'')+'" onclick="toggleTodo(\''+t.id+'\')">'+(t.done?'✓':'')+'</button><div class="lbl">'+esc(t.t)+(due?'<small'+(late?' style="color:var(--danger)"':'')+'>'+(late?'Overdue · ':'')+due+'</small>':'')+'</div><button class="icon del" aria-label="Remove" onclick="rmTodo(\''+t.id+'\')">×</button></div>'}).join(''):'<div class="empty">Nothing left. Go pack.</div>';
+}
+function fmtDate(s){var d=new Date(s+'T00:00');return d.toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short'});}
+function toggleTodo(id){S.todo.forEach(function(t){if(t.id===id)t.done=!t.done});save();renderTodo();}
+function rmTodo(id){S.todo=S.todo.filter(function(t){return t.id!==id});save();renderTodo();}
+function openTodo(){sheet('<h3>Add a to do</h3><label class="f">What</label><input id="td_t"><label class="f">Due</label><input id="td_d" type="date"><button class="btn full" style="margin-top:14px" onclick="var t=v(\'td_t\');if(!t)return;S.todo.push({id:uid(),t:t,d:v(\'td_d\'),done:false});save();renderTodo();closeModal()">Add</button>');}
+
+/* ---------- ask ---------- */
+var VILLA_KNOWLEDGE=
+'AIRBNB LISTING: Oceanfront Villa | Pool | Breakfast | 6 Staff. Nusa del Rey, Sandy Bay, west side of Nusa Lembongan, Bali, Indonesia. Hosted by Rachel Anne (Superhost, 2 years hosting, 100% response rate, responds within an hour). Co-hosts: Rachel and Ita. Rated 5.0 from 35 reviews, Guest favourite, top 10% of homes.\n'+
+'Our booking: check-in Sat 14 Nov 2026 from 3:00 pm, checkout Sat 21 Nov 2026 by 10:00 am. Ten guests on the Nusa del Rey booking, 8 more at Villa Waru next door, 18 in total.\n'+
+'Capacity: 12 guests, 5 bedrooms, 8 beds, 5 baths. Bedrooms 1 to 4 each have one king bed. Bedroom 5 has 4 single beds. Each bedroom has AC and luxe linen, four have their own ensuite. Spread across three pavilions.\n'+
+'Spaces: infinity pool (one of the few places in the area with a pool), open-air dining space, kitchen, gardens, private fire pit with sunset views, shared indoor and outdoor living areas. The entire villa is for guests.\n'+
+'Staff: six dedicated staff. They greet you at the harbour, handle bags, and are on hand throughout the stay. A night guard does evening turndown and secures the villa when you retire.\n'+
+'Breakfast: daily gourmet breakfast included, with fresh pastries, tropical fruit, homemade breads, and chef-prepared mains to choose from each morning.\n'+
+'Lunch: purchasable lite bites menu for poolside lunches, including nasi goreng, toasties, wedges, and Indonesian favourites.\n'+
+'Minibar: stocked with craft beers, Bintang, wines, and self-serve cocktails. Full cocktail and mocktail menu runs daily. Private chef dinners available on request (options include Nyomans Warung, The Feast Lembongan, and Puspa).\n'+
+'Celebrations: they help with proposals, birthdays, and surprises, just let them know.\n'+
+'Transfers: complimentary harbour pickup included. Send them your boat details and they take care of the rest. They can recommend fast boats from Bali.\n'+
+'Island life: internet can be slower than the mainland and brief power outages happen; backup solutions in place.\n'+
+'Access: the villa has stairs and split levels and may not suit guests with mobility limitations.\n'+
+'Amenities include waterfront, kitchen, Wi-Fi, free parking, pool, and 58 amenities in total. Fully compliant with Bali villa regulations. NIB: 0907240005825.\n'+
+'Reviews most often mention hospitality, the view, location, breakfast, family friendliness, and the pool.\n'+
+'SECOND VILLA, VILLA WARU (next door to Nusa del Rey, Sunset Beach, 80771 Nusa Lembongan, GPS S 8 41.335 E 115 25.732, phone +62 812 3819 023): four bedroom beach-front villa for 8 adults, booked on Booking.com by Tammy Cuff, confirmation 6053.606.982 (Tammy holds the PIN). Check-in Sat 14 Nov from 1:00 pm, checkout Sat 21 Nov by 11:30 am. Breakfast included. Private pool, sea view, kitchen, air conditioning, free Wi-Fi and parking, wheelchair accessible ground floor. Price about AUD 3,146 (IDR 39,690,000) paid to the villa in IDR, cash only. Free cancellation until 10 Nov 2026, full charge from 11 Nov, dates cannot be changed. Activities and dress themes are for everyone across both villas; chef dinners and buffets are held at Nusa del Rey, the main villa.\n'+
+'NIGHT AFTER, HOLIDAY INN BALI SANUR by IHG (Jalan Kesuma Sari No. 4, Sanur, phone +62 361 2098999): Sat 21 to Sun 22 Nov, standard room for 2 adults (Tammy and Brad), extra-large double requested, no breakfast, about AUD 122. Check-in from 3:00 pm, checkout by 12:00 pm. Booking.com confirmation 5567.825.564 (Tammy holds the PIN). Free cancellation until 21 Oct 2026. Photo ID and credit card needed at check-in. The rest of the group still needs a plan for the night of the 21st.\n'+
+'THE CUFFS FLIGHTS (Brad and Tammy, Jetstar): JQ 110 Perth to Denpasar Sat 14 Nov, departs 06:50 Perth T1, arrives 10:30 Denpasar T1, Airbus A321LR, 3h 40m. JQ 107 Denpasar to Perth Sun 22 Nov, departs 15:05, arrives 18:40, 3h 35m. No night in Bali before the trip; the 10:30 landing connects to the 1:30 pm Setia or 2:00 pm Rocky fast boat from Sanur. Other guests add their own flights in the app.\n'+
+'NUSA DEL REY PAGES (linktr.ee/nusadelrey, each on nusadelrey.my.canva.site): getting-to-nusa-del-rey, welcome-book, celebrations-at-nusa-del-rey, breakfast, lite-bites, something-sweet, mini-bar-menu, cocktail-menu, mocktail-menu, nyomans-warung, the-feast-lembongan, private-chef-puspa, islandtour, spatreatments, scubadiving, snorkelling-tour, shared-snorkelling-tour, seaweed-farm-experience, spear-fishing, buggy-hire, scooter-hire. They also have Instagram and WhatsApp.';
+var BOOKLET_1=
+'GETTING TO NUSA DEL REY (arrival guide): Nusa Lembongan is reached by fast boat from Sanur Harbour. Two recommended operators.\n'+
+'Rocky Fast Cruise (www.rockyfastcruise.com), recommended: jetty-to-jetty dry landing (no walking through water), ideal for guests with mobility concerns, children, or lots of luggage; reliable service with professional crew; arrives at Telatak Harbour, Nusa Lembongan. Typical daily times (subject to weather and season): Sanur to Nusa Lembongan 10:00 AM, 12:00 PM, 2:00 PM, 5:00 PM. Nusa Lembongan to Sanur 9:00 AM, 11:00 AM, 1:00 PM, 4:00 PM. Travel time approx 35 to 45 minutes.\n'+
+'Setia Fast Boat (www.setiafastferry.com), recommended: premium air-conditioned fast ferry seating with a smooth ride; ends up on Jungut Batu Beach (a beach landing), easy to start exploring right away; great option if boat comfort is a priority. Typical daily times: Sanur to Nusa Lembongan 9:30 AM, 1:30 PM, 5:00 PM. Nusa Lembongan to Sanur 8:30 AM, 12:30 PM, 4:30 PM. Travel time approx 35 to 45 minutes.\n'+
+'Complimentary transfer included: once you arrive on Nusa Lembongan, a transfer from the harbour to the villa is included. The team will be there to greet you, no need to organise transport on the island.\n'+
+'Check-in 3:00 PM, check-out 10:00 AM. When there is no same-day departure or arrival they are often happy to accommodate early check-in or late check-out. Arriving early: if your boat arrives before the villa is ready, staff can collect luggage from the harbour, bags are delivered safely to the villa, and you are free to explore the island, enjoy lunch, or relax at a close by beach club.\n\n'+
+'BREAKFAST MENU (included in the rate; visitors not staying at the villa are welcome at IDR 200K per person). Every morning: fresh mixed juice and drinking water, tea and French press coffee, fresh seasonal fruit, sourdough bread and a selection of pastries, selection of spreads and sauces. Plus your choice of one main: Bacon and Egg Roll (bacon, egg sunny side up, on a toasted brioche roll); Brekkie del Rey (bacon, eggs your way, mushroom, tomato and hash brown); Brekkie Burger (bacon, egg sunny side up, avocado and hash brown on a toasted brioche roll); Nusa del Rey Smoothie Bowl (seasonal fruit, plain yogurt and peanut butter topped with chia seeds and granola); Pancakes (fluffy pancakes with fresh yogurt and banana or berries); Avo on Toast (smashed avocado on 2 slices of sourdough with cherry tomatoes, feta and seeds).\n\n'+
+'LITE BITES MENU (all prices include service and tax, available until 5pm): Hummus with warm toasted sourdough or cucumber and carrot sticks IDR 70k; Bruschetta IDR 70k; Crispy vegetable spring rolls (five, with sweet chilli sauce) IDR 45k; Golden crinkle-cut fries (Heinz ketchup or mayonnaise) IDR 40k; Potato wedges (sour cream and sweet chilli) IDR 40k; Toasties: classic cheese toastie on sourdough with potato crisps, customise with ham, tomato, avocado, up to 2 fillings IDR 60k or 3 fillings IDR 65k; Nasi goreng vegetarian IDR 70k or chicken IDR 80k (with cucumber and prawn crackers); Mie goreng vegetarian IDR 70k or chicken IDR 80k.\n\n'+
+'SOMETHING SWEET (all include service and tax, available until 5pm): Es krim goreng (fried ice cream with whipped cream and chocolate sauce) IDR 50k; Pisang goreng (fried banana fritters with powdered sugar) IDR 50k; Pisang split (banana split with Neapolitan ice cream and chocolate sauce) IDR 50k; Fresh fruit platter IDR 50k.\n\n'+
+'MINI-BAR MENU (not a public bar, so no additional service or tax charge): Soft drinks and mixers (Coca-Cola, Coke Zero, Sprite, soda water, tonic) IDR 25k; Bintang small, zero, or crystal IDR 35k; Craft beer Kura Kura Easy Ale, Island Ale, Session Hazy IDR 65k; Hard seltzer Santai passion fruit and guava or lemon and lime IDR 60k; Wine IDR 350k a bottle: white Two Islands Sauvignon Blanc or Pinot Grigio, rose Saba Bay Pink Blossom, red Two Islands Pinot Noir or Grenache, sparkling Cape Discovery Cuvee; Self serve cocktails Espresso Martini or Negroni IDR 110k.\n\n'+
+'COCKTAIL MENU (available daily 12:00 PM to 5:00 PM; evening cocktail sessions available on request with a minimum spend of IDR 1 million, advance notice appreciated so staff can be rostered; no service or tax charge): Margarita IDR 110k (Jose Cuervo tequila, Vibe triple sec, fresh lime, salted rim); Espresso Martini IDR 110k (Smirnoff vodka, fresh espresso, Vibe coffee liqueur); Aperol Spritz IDR 110k (Aperol, Cape Discovery sparkling, soda, orange); Negroni IDR 110k (Gordon\'s gin, Campari, Martini Rosso); Mimosa IDR 80k (orange juice and Cape Discovery sparkling); Nusa Island Ice Tea IDR 110k (vodka, gin, Bacardi white rum, tequila, triple sec, lime, cola); Mojito IDR 110k (Bacardi white rum, lime, mint, sugar, soda).\n\n'+
+'MOCKTAIL MENU (same hours as cocktails): Nusa del Nectar IDR 60k (pineapple, orange, lime, soda, grenadine); Lembongan Breeze IDR 60k (pineapple, orange and lime with coconut and grenadine); Reef Refresher IDR 55k (watermelon, orange, mint); Low Tide Mojito IDR 55k (lime, mint, syrup, soda); Sunset Glow IDR 50k (lemonade, lime, grenadine).';
+var BOOKLET_2=
+'NYOMANS WARUNG BUFFET DELIVERY (Indonesian buffet served at the villa, arranged by the villa with 24 hours notice, minimum 6 people, all prices per person plus 10% government tax and 5% service charge): Standard Buffet IDR 100K (grilled fish, chicken satay, fish in banana leaf, vegetable curry, vegetable green beans, sambal matah, peanut sauce); Super Buffet IDR 140K (grilled fish, fish satay, fried noodle chicken, chicken in banana leaf, tempe in banana leaf, green beans, sambal matah, peanut sauce); Special Buffet IDR 185K (grilled fish, grilled prawn, fish satay, chicken satay, chicken in banana leaf, green beans, sambal matah, peanut sauce); Seafood Buffet IDR 200K (grilled fish, grilled prawn, calamari satay, fish in banana leaf, fish satay, green beans, sambal matah, peanut sauce); Vegetarian Buffet IDR 110K (mixed tofu and tempe satay, fried tempe tofu, tempe in banana leaf, tofu curry, green beans, vegetable capcay, peanut sauce); Fish Buffet IDR 175K (grilled fish, fish satay, fish in banana leaf, fish curry, fried fish, green beans, sambal matah, peanut sauce); Chicken Buffet IDR 175K (grilled chicken, fried crispy chicken, chicken capcay, chicken satay, chicken in banana leaf, green beans, sambal matah, peanut sauce); Prawn Buffet IDR 225K (grilled prawn, crispy prawn, prawn in banana leaf, prawn satay, prawn curry, green beans, sambal matah, peanut sauce); Satay Buffet IDR 190K (fish, prawn, chicken, calamari, tempe and tofu satay, green beans, peanut sauce).\n\n'+
+'THE FEAST LEMBONGAN (private chef, gourmet dining experience, Instagram @thefeastlembongan, inform them of allergies and dietary requirements before dining; prices are per group, minimum order 5 persons): Island Spice Experience IDR 850K (umbul-umbul suna cekuh pan-seared mackerel in Balinese ginger garlic broth with sambal matah; ayam srosop pan-seared chicken leg in coconut broth; kolak pisang banana mousse dessert); Taste of Nusantara IDR 850K (tahu tek fried tofu and egg with peanut sauce; pepes ikan grilled fish in banana leaf with rice cake; dadar gulung Indonesian crepes with coconut and palm sugar); Ocean Dining Experience IDR 850K (prawn salad with crispy potato; pan-seared white fish with broccoli and vin blanc chive sauce; mocha mousse); Signature Dining Experience IDR 950K (fish ceviche starter; Australian ribeye steak with potato fondant and gravy; caramel pudding); Indonesian Vegan Delight IDR 650K (pecel sayur tempe and tofu with peanut sauce; lontong sayur rice cake, tofu and vegetables in coconut turmeric broth; kolak pisang).\n\n'+
+'PRIVATE CHEF PUSPA (Lembongan Cooking and Dining Experience; all menus per person, minimum order 5 persons, prices exclude government tax and service charge, shown as ++). Every menu below includes steamed rice, Indonesian crackers, jukut urab urab (mixed steamed salad with grated coconut and spices), and fudgy brownie with vanilla ice cream unless noted.\n'+
+'All Aboard Menu IDR 700K++: corn on the cob with garlic and cheese, chicken satay with peanut sauce; grilled chicken with gravy, grilled red snapper, grilled tiger prawn in Indonesian turmeric sauce; sambal.\n'+
+'BBQ Indonesian Seafood IDR 700K++: corn on the cob with butter and cheese, chicken satay; grilled red snapper with turmeric sauce, grilled king prawn with chef\'s favourite sauce, grilled clams Lembongan style; sambal. Additional: clams IDR 200K per kg, squid IDR 300K per kg, lobster and mud crab at market price.\n'+
+'Chef\'s Special Menu IDR 900K++: vegetarian spring rolls with sweet and sour sauce, chicken satay with peanut cashew sauce; grilled tiger prawn with sambal dabu dabu, grilled pork ribs with Puspa\'s BBQ sauce, soft shell crab in Indonesian curry sauce.\n'+
+'Custom BBQ Seafood with Lobster IDR 1,200K++: chicken satay, vegetable spring rolls; grilled red snapper in Balinese turmeric sauce, grilled prawns, butter lemon garlic lobster, stir-fried soft shell crab Lembongan style, grilled clams Lembongan style.\n'+
+'Indonesian Delish Package IDR 650K++: corn fritters, vegetable spring rolls; beef rendang, opor ayam (braised chicken in coconut milk), terong balado with minced chicken (eggplant in sweet and sour sauce); sambal.\n'+
+'Island Menu IDR 700K++: vegetarian spring rolls, chicken satay with peanut cashew sauce; grilled tiger prawn with sambal dabu dabu, grilled red snapper with Jimbaran sauce, Balinese crispy duck with sambal matah.\n'+
+'Balinese Delights Menu IDR 750K++: crispy corn fritters, chicken satay; ayam betutu (Balinese smoky spiced roast chicken), grilled red snapper Lembongan style, beef rendang; sides gado gado, prawn crackers, sambal matah, nasi goreng; dessert onde onde (sesame glutinous rice balls with black sesame paste), no brownie on this one.\n'+
+'Rough guide for the group: Nyomans buffet is the budget option (IDR 100K to 225K a head plus 15%), The Feast is priced per group of five or more (IDR 650K to 950K), Puspa is the premium per-person option (IDR 650K to 1,200K a head plus tax and service). All need advance notice through the villa.';
+var BOOKLET_3=
+'BUGGY HIRE (electric golf-style buggies, contact Ghygan directly on +62 821 4424 5153 or ask villa staff): 2 to 5 seater 4 to 5 hours IDR 800K; 2 to 5 seater 6 to 7 hours IDR 1.2 million; 6 to 7 seater 4 to 5 hours IDR 1 million; 6 to 7 seater 6 to 7 hours IDR 1.2 million; any size 24 hours IDR 1.5 million.\n\n'+
+'SCOOTER HIRE (ask villa staff): Honda Scoopy IDR 100K per day; Yamaha Nmax IDR 150K per day.\n\n'+
+'ISLAND TOUR (guided, private transport and local guide, pickup from Nusa del Rey, 3 to 4 hours, IDR 650K for the tour; contact Andi on +62 895 3430 10137 or ask staff): Devil\'s Tear cliff views (entrance extra IDR 25K), Dream Beach and Mushroom Bay, Mangrove Forest boat ride (30 min, extra IDR 100K per person paid at the mangrove counter), the Yellow Bridge to Nusa Ceningan, and a seaweed farm visit.\n\n'+
+'IN-VILLA SPA (two massage tables, therapists Komang and Putu come to the villa, ask staff to book; favourite spots are by the fire pit in the morning, the deck outside the Malapascua pavilion, or inside the joglo): Balinese massage 60 min IDR 220K, 90 min IDR 320K; deep tissue 60 min IDR 270K, 90 min IDR 372K; reflexology 60 min IDR 220K, 90 min IDR 320K; back massage 30 min IDR 140K; foot massage 30 min IDR 160K; Face Biokos ritual 60 min IDR 270K, 90 min IDR 320K; sunburn therapy 60 min IDR 370K; spa pedicure with polish 60 min IDR 220K, with gel 90 min IDR 300K; spa manicure with polish 60 min IDR 220K, with gel 90 min IDR 300K; male manicure or pedicure 45 min IDR 200K; kids manicure or pedicure with gel 60 min IDR 220K; remove gel polish 15 min IDR 150K; remove nail tips 30 min IDR 170K.\n\n'+
+'SCUBA DIVING with Siren Diving (info@sirendiving.com, WhatsApp +62 811 380 2277). Certified divers: 2 dive day trip (2 morning dives) IDR 1,700K; 3 dive day trip IDR 2,200K subject to availability; private guide 2:1 IDR 500K; pool refresh skill check IDR 400K; private boat from IDR 12,000K; Manta Point or east coast fuel surcharge IDR 200K. Training: try dives IDR 2,000K or 2,200K with pool; Open Water course IDR 6,300K; Advanced course IDR 6,000K or 6,500K (2 or 3 days); Stress and Rescue IDR 5,000K (needs CPR cert, React Right IDR 2,000K); specialties from IDR 3,000K (deep, drift, photo, buoyancy). Extras: Siren T-shirts IDR 200K, Olympus TG-5 camera rental IDR 350K, dive computer rental IDR 50K. Day trips: south coast (Manta Point, Manta Bay, Crystal Bay), north coast (Toyapakeh, SD, PED, Mangrove, Sental, PMG), east coast (Sampalan, Karang Sari).\n\n'+
+'MANGROVE FOREST EXPERIENCE (ask villa staff, subject to availability): traditional wooden boat ride through the mangroves with a local fisherman guide, pick up and drop off at the villa, wildlife spotting (birds, fish, monitor lizards), 45 minutes to 1 hour. Suitable for all ages, no swimming required, best in the morning light, a relaxing low-energy option.\n\n'+
+'PRIVATE BOAT SNORKELLING TOUR with Captain Yin Yang (Captain Komang +62 813 5335 5215, @captainyin_yang, www.captainyinyang-lembongan.com, or ask staff): IDR 3.1 million for the private 20-passenger boat, half day 3 to 4 hours, includes snorkelling gear (mask, snorkel, fins, optional life jacket), experienced local guide, villa pickup and drop-off. Good value for our group of ten versus the shared tour.\n\n'+
+'SHARED SNORKELLING TOUR (ask staff): IDR 350K per person on a shared boat, max 20 passengers, 07:30 to 11:30. Destinations: Manta Point (manta rays), Kelingking Beach viewpoint, Broken Beach rock arch, Wall Bay, Mangrove Point (sea turtles). Includes gear, underwater camera, towel, bottled water, guide, free pick-up and drop.\n\n'+
+'SEAWEED FARM EXPERIENCE (ask staff, subject to availability): IDR 350K per person, villa pick up and drop off, walk the seaweed fields, learn to tie and plant seaweed with local farmers. Best in the morning, suitable for all ages, wear clothes you do not mind getting wet.\n\n'+
+'CELEBRATIONS: personalised balloon display IDR 500K; personalised mandala flower message (petals on the floor) IDR 200K; cakes in chocolate, red velvet or cheesecake: small 17cm IDR 250K, medium 20cm IDR 320K, large 24cm IDR 400K.';
+var ALL_KNOWLEDGE=VILLA_KNOWLEDGE+'\n\n'+BOOKLET_1+'\n\n'+BOOKLET_2+'\n\n'+BOOKLET_3;
+/* Optional: paste your Cloudflare Worker URL here so the group can ask questions without a key. Leave empty to use a per-device key or the offline search. */
+var PROXY_URL='';
+var PAGE_URLS={'Getting there':'https://nusadelrey.my.canva.site/getting-to-nusa-del-rey','Welcome book':'https://nusadelrey.my.canva.site/welcome-book','Breakfast':'https://nusadelrey.my.canva.site/breakfast','Lite bites':'https://nusadelrey.my.canva.site/lite-bites','Cocktails':'https://nusadelrey.my.canva.site/cocktail-menu','Minibar':'https://nusadelrey.my.canva.site/mini-bar-menu','Island tour':'https://nusadelrey.my.canva.site/islandtour','Snorkelling tour':'https://nusadelrey.my.canva.site/snorkelling-tour','Scuba diving':'https://nusadelrey.my.canva.site/scubadiving','Spa treatments':'https://nusadelrey.my.canva.site/spatreatments','Buggy hire':'https://nusadelrey.my.canva.site/buggy-hire','Scooter hire':'https://nusadelrey.my.canva.site/scooter-hire','Celebrations':'https://nusadelrey.my.canva.site/celebrations-at-nusa-del-rey'};
+var chat=[];
+var STARTERS=['Which fast boat should we take?','What time do boats leave Sanur?','What is on the breakfast menu?','How much is a Bintang?','Can we do cocktails in the evening?','What would a chef dinner cost for ten of us?','Private or shared snorkel boat for ten?','How much is a massage?'];
+
+function renderAsk(){
+  document.getElementById('knowList').innerHTML='<div class="item"><div class="lbl"><b>Airbnb listing</b><small>Built in</small></div></div><div class="item"><div class="lbl"><b>Arrival guide, breakfast, lite bites, sweets, minibar, cocktails, mocktails</b><small>Built in from the booklet</small></div></div><div class="item"><div class="lbl"><b>Nyomans Warung buffets, The Feast, Chef Puspa menus</b><small>Built in from the booklet</small></div></div><div class="item"><div class="lbl"><b>Buggies, scooters, island tour, spa, diving, mangroves, snorkelling, seaweed farm, celebrations</b><small>Built in from the booklet</small></div></div>';
+  document.getElementById('askChips').innerHTML=chat.length?'':STARTERS.map(function(q){return '<button class="chip" onclick="document.getElementById(\'askIn\').value=this.textContent;ask()">'+q+'</button>'}).join('');
+  var log=document.getElementById('chatLog');
+  log.innerHTML=chat.length?chat.map(function(m){return '<div class="msg '+(m.role==='user'?'u':'a')+'">'+esc(m.text)+(m.src?'<small>'+esc(m.src)+'</small>':'')+'</div>'}).join(''):'<div class="empty">Ask anything about the villa, the island, or getting there.</div>';
+  var k=document.getElementById('apiKey');k.value=localStorage.getItem('anthropic_key')||'';k.onchange=function(){localStorage.setItem('anthropic_key',k.value.trim());toast('Key saved');};document.getElementById('setupCard').style.display=PROXY_URL?'none':'';
+}
+
+function buildSystem(){
+  var k=ALL_KNOWLEDGE;
+  var people=S.people.map(function(p){return p.name+(p.room?' in '+p.room:'')}).join(', ');
+  var flights=S.flights.map(function(f){return f.who+' '+f.no+' '+f.route+' '+f.date+' '+f.dep+(f.arr?' to '+f.arr:'')}).join('; ');
+  return 'You are the concierge for a group trip to Nusa del Rey, a villa on Nusa Lembongan, Bali, from Sat 14 Nov to Sat 21 Nov 2026. The group is flying from Perth, Australia. '+
+  'Answer from the knowledge below first. If the answer is not there and it is something the villa\'s own pages would cover, use web_fetch on the matching page under nusadelrey.my.canva.site; if the fetch returns nothing useful, say so plainly and suggest the group paste that page in or message Rachel Anne on Airbnb or WhatsApp. For general island questions (beaches, Nusa Penida day trips, weather in November, fast boat operators from Sanur), you may use web_search. '+
+  'Be concise and warm. Use plain sentences. Do not use em dashes. If you are unsure, say what you know and what to confirm with the host.\n\n'+
+  (people?'THE GROUP (room allocations across both villas): '+people+'\n\n':'')+(flights?'FLIGHTS LOGGED IN THE APP: '+flights+'\n\n':'')+
+  'KNOWLEDGE:\n'+k+'\n\nPAGE URLS: '+JSON.stringify(PAGE_URLS);
+}
+
+function offlineAnswer(q){
+  var stop=/^(the|a|an|is|are|do|does|we|i|can|what|how|much|many|when|where|which|who|of|to|for|on|in|at|it|our|there|any|and|or|with|from|that|this|us|be|will|get|have|has|price|prices|cost|costs|per|person|people|day|book|staff|villa|need|want|like|should|would|ten|group|option|options)$/;
+  var terms=q.toLowerCase().replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(function(w){return w.length>2&&!stop.test(w)});
+  var syn={boat:['boat','ferry','cruise','sanur','harbour'],ferry:['boat','ferry','cruise'],massage:['massage','spa'],spa:['spa','massage','manicure','pedicure'],drink:['cocktail','minibar','bintang','wine','beer'],beer:['bintang','beer','ale'],cake:['cake','celebration','balloon'],birthday:['celebration','balloon','cake','mandala'],snorkel:['snorkel','snorkelling'],snorkelling:['snorkel','snorkelling'],dive:['dive','diving','scuba'],diving:['dive','scuba'],chef:['chef','feast','puspa','buffet','nyomans','dinner'],dinner:['chef','feast','puspa','buffet','nyomans','dinner'],buggy:['buggy','buggies'],buggies:['buggy'],scooter:['scooter','scoopy','nmax'],bike:['scooter','scoopy','nmax'],breakfast:['breakfast','brekkie'],lunch:['lite','bites','toastie','nasi'],checkin:['check-in','check-in'],checkout:['check-out','checkout'],kids:['kids','children','ages','family'],tour:['tour','island'],price:[],cost:[]};
+  var expanded=[];terms.forEach(function(t){expanded.push(t);(syn[t]||[]).forEach(function(s){if(expanded.indexOf(s)<0)expanded.push(s)})});
+  if(!expanded.length)return null;
+  var chunks=ALL_KNOWLEDGE.split(/\n+/).filter(function(c){return c.trim().length>20});
+  var scored=chunks.map(function(c){var lc=c.toLowerCase();var s=0;expanded.forEach(function(t){if(lc.indexOf(t)>=0)s+=(terms.indexOf(t)>=0?2:1)});return {c:c,s:s}}).filter(function(x){return x.s>0}).sort(function(a,b){return b.s-a.s}).slice(0,3);
+  if(!scored.length)return null;
+  return scored.map(function(x){var c=x.c;if(c.length>700){var lc=c.toLowerCase();var best=0;expanded.forEach(function(t){var i=lc.indexOf(t);if(i>=0&&(best===0||i<best))best=i});var st=Math.max(0,best-150);c=(st>0?'... ':'')+c.slice(st,st+700)+' ...';}return c;}).join('\n\n');
+}
+
+function ask(){
+  var inp=document.getElementById('askIn');var q=inp.value.trim();if(!q)return;
+  var key=localStorage.getItem('anthropic_key');
+  inp.value='';chat.push({role:'user',text:q});renderAsk();
+  if(!PROXY_URL&&!key){
+    var a=offlineAnswer(q);
+    chat.push({role:'assistant',text:a||'Nothing in the villa notes matches that. Try different words, or message Rachel Anne on Airbnb or WhatsApp.',src:a?'From the villa notes on this device':''});
+    renderAsk();return;
+  }
+  var log=document.getElementById('chatLog');log.insertAdjacentHTML('beforeend','<div class="msg a thinking" id="thinking">Checking the villa notes…</div>');
+  document.getElementById('askBtn').disabled=true;
+  var msgs=chat.slice(-8).map(function(m){return {role:m.role==='user'?'user':'assistant',content:m.text}});
+  var headers={'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-beta':'web-fetch-2025-09-10'};
+  if(!PROXY_URL){headers['x-api-key']=key;headers['anthropic-dangerous-direct-browser-access']='true';}
+  fetch(PROXY_URL||'https://api.anthropic.com/v1/messages',{
+    method:'POST',headers:headers,
+    body:JSON.stringify({
+      model:'claude-sonnet-4-6',max_tokens:1200,
+      system:buildSystem(),
+      messages:msgs,
+      tools:[
+        {type:'web_fetch_20250910',name:'web_fetch',max_uses:3,allowed_domains:['nusadelrey.my.canva.site','www.airbnb.com.au','linktr.ee']},
+        {type:'web_search_20250305',name:'web_search',max_uses:3}
+      ]
+    })
+  }).then(function(r){return r.json()}).then(function(d){
+    if(d.error)throw new Error(d.error.message||'API error');
+    var text=(d.content||[]).filter(function(b){return b.type==='text'}).map(function(b){return b.text}).join('\n').trim();
+    var used=(d.content||[]).filter(function(b){return b.type==='server_tool_use'}).map(function(b){return b.name==='web_fetch'?'read '+(b.input&&b.input.url||'a page').replace(/^https?:\/\//,''):'searched the web'});
+    chat.push({role:'assistant',text:text||'No answer came back. Try rephrasing.',src:used.length?'Also '+used.join(', '):''});
+  }).catch(function(e){
+    var a=offlineAnswer(q);
+    chat.push({role:'assistant',text:a?a:'Could not reach the assistant: '+e.message,src:a?'Assistant unavailable, so this is from the villa notes on this device':''});
+  }).then(function(){document.getElementById('askBtn').disabled=false;renderAsk();window.scrollTo(0,0);});
+}
+
+/* ---------- modal / tools ---------- */
+function sheet(html){document.getElementById('sheet').innerHTML=html;document.getElementById('modal').classList.add('on');var f=document.querySelector('#sheet input');if(f)setTimeout(function(){f.focus()},50);}
+function closeModal(){document.getElementById('modal').classList.remove('on');}
+function v(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+function exportData(){var b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='nusa-del-rey-plan.json';a.click();toast('Backup saved');}
+function importData(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var s=JSON.parse(r.result);if(!s.pack)throw 0;delete s.knowledge;s.themes=s.themes||{};if(!s.flights)s.flights=FLIGHTS_DEFAULT.slice();S=s;save();renderAll();toast('Plan loaded');}catch(e){toast('That file did not look right');}};r.readAsText(f);inp.value='';}
+function resetAll(){if(!confirm('Clear everything and start again?'))return;S=fresh();save();renderAll();}
+function makePDF(){
+  var pv=document.getElementById('printView');
+  var people=S.people;
+  var h='<h1>Nusa Lembongan, November 2026</h1><div class="sub">Nusa del Rey and Villa Waru · Sat 14 to Sat 21 Nov · 18 of us across two villas</div>';
+  h+='<h2>At a glance</h2><table><tr><th>Sat 14 Nov</th><td>Fly in (Cuffs land 10:30 on JQ 110), fast boat from Sanur, check in to both villas (Nusa del Rey from 3 pm, Villa Waru from 1 pm)</td></tr><tr><th>14 to 21 Nov</th><td>Seven nights on Nusa Lembongan. Activities and dress themes for everyone; chef dinners at Nusa del Rey</td></tr><tr><th>Sat 21 Nov</th><td>Check out (Nusa del Rey 10 am, Villa Waru 11:30 am), boat to Sanur, Holiday Inn Bali Sanur</td></tr><tr><th>Sun 22 Nov</th><td>Fly home (Cuffs JQ 107 at 15:05)</td></tr></table>';
+  h+='<h2>Where we are staying</h2><table><tr><th>Nusa del Rey (main villa)</th><td>Sandy Bay. 5 bedrooms, sleeps 12, pool, fire pit, six staff, breakfast included. Host Rachel Anne via Airbnb.</td></tr><tr><th>Villa Waru (next door)</th><td>Sunset Beach. 4 bedrooms, 8 adults, pool, breakfast included. Ref 6053.606.982, +62 812 3819 023. Paid at the villa in IDR cash, about AUD 3,146.</td></tr><tr><th>Holiday Inn Bali Sanur</th><td>Sat 21 Nov, 2 adults, ref 5567.825.564, +62 361 2098999.</td></tr></table>';
+  if(S.flights.length){h+='<h2>Flights</h2><table><tr><th>Who</th><th>Flight</th><th>Date</th><th>Times</th><th>Notes</th></tr>'+S.flights.slice().sort(function(a,b){return (a.date+a.dep)>(b.date+b.dep)?1:-1}).map(function(f){return '<tr><td>'+esc(f.who)+'</td><td>'+esc(f.no)+' '+esc(f.route)+'</td><td>'+(f.date?fmtDate(f.date):'')+'</td><td>'+esc(f.dep)+(f.arr?' to '+esc(f.arr):'')+'</td><td>'+esc(f.n)+'</td></tr>'}).join('')+'</table>';}
+  var tr=[['Fast boat out',S.travel.boat],['Fast boat back',S.travel.boatBack],['Night in Bali before',S.travel.hotelBali],['Night in Sanur after',S.travel.hotelAfter]].filter(function(x){return x[1]});
+  if(tr.length||S.notes){h+='<h2>Travel</h2><table>'+tr.map(function(x){return '<tr><th>'+x[0]+'</th><td>'+esc(x[1])+'</td></tr>'}).join('')+'</table>';if(S.notes)h+='<p>'+esc(S.notes).replace(/\n/g,'<br>')+'</p>';}
+  h+='<h2>Day by day</h2>';
+  DAYS.forEach(function(d,i){
+    var p=S.plans[i]||{};var has=SLOTS.some(function(s){return (p[s]||[]).length});
+    h+='<div class="day"><h3>'+d.lbl+' '+d.num+' Nov'+(d.title?' · '+d.title:'')+'</h3>';
+    if(S.themes[i])h+='<div class="theme">Dress theme: '+esc(S.themes[i])+'</div>';
+    if(i===0)h+='<div class="slot"><b>Arrival</b><span>Check-in from 3:00 pm, villa staff meet the boat</span></div>';
+    if(i===7)h+='<div class="slot"><b>Departure</b><span>Checkout by 10:00 am</span></div>';
+    if(!has&&!S.themes[i]&&i!==0&&i!==7)h+='<div class="slot"><span><small>Free day</small></span></div>';
+    SLOTS.forEach(function(s){(p[s]||[]).forEach(function(it){h+='<div class="slot"><b>'+s+'</b><span>'+esc(it.t)+(it.n?' <small>'+esc(it.n)+'</small>':'')+'</span></div>'})});
+    h+='</div>';
+  });
+  if(people.length){
+    h+='<h2>Who is coming</h2><table><tr><th>Name</th><th>Room</th><th>Arriving</th><th>Travel notes</th></tr>'+people.map(function(p){return '<tr><td>'+esc(p.name)+'</td><td>'+esc(p.room||'')+'</td><td>'+esc(p.arrive||'')+'</td><td>'+esc(p.flight||'')+'</td></tr>'}).join('')+'</table>';
+  }
+  var todo=S.todo.filter(function(t){return !t.done});
+  if(todo.length){h+='<h2>Still to do before we go</h2><ul>'+todo.map(function(t){return '<li>'+esc(t.t)+(t.d?' <small>by '+fmtDate(t.d)+'</small>':'')+'</li>'}).join('')+'</ul>';}
+  var cats=[];S.pack.forEach(function(p){if(cats.indexOf(p.cat)<0)cats.push(p.cat)});
+  h+='<h2>Packing list</h2><div class="cols">'+cats.map(function(c){return '<div><b>'+esc(c)+'</b><ul>'+S.pack.filter(function(p){return p.cat===c}).map(function(p){return '<li>'+esc(p.t)+(p.who?' <small>('+esc(p.who)+')</small>':'')+'</li>'}).join('')+'</ul></div>'}).join('')+'</div>';
+  h+='<h2>Useful contacts</h2><table>'+
+    '<tr><th>Villa</th><td>Rachel Anne via Airbnb messages, or Nusa del Rey WhatsApp (linktr.ee/nusadelrey)</td></tr>'+
+    '<tr><th>Boats</th><td>Rocky Fast Cruise (dry jetty landing) or Setia Fast Boat (beach landing), Sanur to Lembongan 35 to 45 min</td></tr>'+
+    '<tr><th>Buggies</th><td>Ghygan +62 821 4424 5153</td></tr>'+
+    '<tr><th>Island tour</th><td>Andi +62 895 3430 10137</td></tr>'+
+    '<tr><th>Private snorkel boat</th><td>Captain Komang +62 813 5335 5215</td></tr>'+
+    '<tr><th>Diving</th><td>Siren Diving, WhatsApp +62 811 380 2277</td></tr></table>';
+  h+='<div class="foot">Bar and lite bites run to 5 pm; evening cocktails need pre-booking (IDR 1M minimum). Chef dinners and buffets need 24 hours notice. Generated '+new Date().toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'})+'.</div>';
+  pv.innerHTML=h;
+  toast('Choose Save as PDF or Share in the print sheet');
+  setTimeout(function(){window.print()},300);
+}
+function renderAll(){renderTrip();renderDays();renderCrew();renderPack();renderKitty();renderTodo();renderAsk();}
+renderAll();
+</script>
+</body>
+</html>
