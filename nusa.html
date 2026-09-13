@@ -181,7 +181,7 @@
 
 <header class="hero">
   <div class="sea"></div><div class="sun"></div>
-  <div class="kicker">Nusa Lembongan, Sandy Bay</div>
+  <div class="kicker">Nusa Lembongan · two villas, one crew</div>
   <h1>Nusa del Rey</h1>
   <div class="count"><b id="countNum">0</b><span id="countLbl">days to go</span></div>
   <div class="dates">Sat 14 Nov, 3:00 pm  to  Sat 21 Nov, 10:00 am</div>
@@ -205,8 +205,17 @@
   </div>
 
   <div class="card">
-    <h3>The villa</h3>
-    <p class="sub" style="margin-bottom:8px">Oceanfront on the quiet west side, hosted by Rachel Anne with co-hosts Rachel and Ita. Three pavilions, infinity pool, fire pit, six staff.</p>
+    <h3>Trip at a glance</h3>
+    <div class="fact"><span>Sat 14 Nov</span><span>Cuffs on JQ 110, land 10:30. Fast boat from Sanur, check in to both villas</span></div>
+    <div class="fact"><span>14 to 21 Nov</span><span>Seven nights on Lembongan, 18 people across two villas next door to each other</span></div>
+    <div class="fact"><span>Sat 21 Nov</span><span>Check out, boat to Sanur, Holiday Inn Bali Sanur</span></div>
+    <div class="fact"><span>Sun 22 Nov</span><span>Fly home, Cuffs on JQ 107 at 15:05</span></div>
+    <p class="sub" style="margin-top:10px">Activities and dress themes are for everyone. Chef dinners and buffets happen at Nusa del Rey, the main villa.</p>
+  </div>
+
+  <div class="card">
+    <h3>Nusa del Rey <span class="pill lagoon">main villa</span></h3>
+    <p class="sub" style="margin-bottom:8px">Sandy Bay, oceanfront on the quiet west side. Hosted by Rachel Anne with co-hosts Rachel and Ita. Three pavilions, infinity pool, fire pit, six staff. Booked on Airbnb.</p>
     <div class="fact"><span>Sleeps</span><span>12 · 5 bedrooms · 8 beds · 5 baths</span></div>
     <div class="fact"><span>Beds</span><span>4 king rooms + 1 room of 4 singles</span></div>
     <div class="fact"><span>Included</span><span>Daily breakfast, harbour pickup</span></div>
@@ -214,6 +223,37 @@
     <div class="fact"><span>Check-in</span><span>Sat 14 Nov from 3:00 pm</span></div>
     <div class="fact"><span>Checkout</span><span>Sat 21 Nov by 10:00 am</span></div>
     <div class="fact"><span>Heads up</span><span>Stairs and split levels, patchy Wi-Fi</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Villa Waru <span class="pill">second villa, next door</span></h3>
+    <p class="sub" style="margin-bottom:8px">Four bedroom beach-front villa on Sunset Beach with its own pool, sea views and kitchen. Booked on Booking.com under Tammy's name.</p>
+    <div class="fact"><span>Sleeps</span><span>8 adults · 4 bedrooms</span></div>
+    <div class="fact"><span>Included</span><span>Breakfast, Wi-Fi, parking</span></div>
+    <div class="fact"><span>Check-in</span><span>Sat 14 Nov from 1:00 pm</span></div>
+    <div class="fact"><span>Checkout</span><span>Sat 21 Nov by 11:30 am</span></div>
+    <div class="fact"><span>Price</span><span>About AUD 3,146 (IDR 39.69M), paid at the villa in cash, IDR</span></div>
+    <div class="fact"><span>Cancellation</span><span>Free until 10 Nov, full charge from 11 Nov</span></div>
+    <div class="fact"><span>Villa phone</span><span>+62 812 3819 023</span></div>
+    <div class="fact"><span>Booking ref</span><span>6053.606.982 (Tammy has the PIN)</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Holiday Inn Bali Sanur <span class="pill">night after</span></h3>
+    <p class="sub" style="margin-bottom:8px">Sat 21 to Sun 22 Nov, near the Sanur boat harbour for the trip home. Booked on Booking.com under Tammy's name.</p>
+    <div class="fact"><span>Room</span><span>Standard room, 2 adults, extra-large double requested</span></div>
+    <div class="fact"><span>Check-in</span><span>From 3:00 pm, checkout by 12:00 pm</span></div>
+    <div class="fact"><span>Price</span><span>About AUD 122, no breakfast</span></div>
+    <div class="fact"><span>Cancellation</span><span>Free until 21 Oct, full charge after</span></div>
+    <div class="fact"><span>Hotel phone</span><span>+62 361 2098999</span></div>
+    <div class="fact"><span>Booking ref</span><span>5567.825.564 (Tammy has the PIN)</span></div>
+    <p class="sub" style="margin-top:8px">Everyone else still needs a bed in Sanur for the 21st, or a boat that connects to an evening flight.</p>
+  </div>
+
+  <div class="card">
+    <div class="row between"><h3>Flights</h3><button class="btn sm" onclick="openFlight()">Add</button></div>
+    <p class="sub" style="margin-bottom:6px">Everyone adds their own so we know who lands when and who shares a boat.</p>
+    <div id="flightList"></div>
   </div>
 
   <div class="card">
@@ -341,7 +381,7 @@ var DAYS=[
   {d:'2026-11-21',lbl:'Sat',num:21,title:'Checkout'}
 ];
 var SLOTS=['Morning','Afternoon','Evening'];
-var ROOMS=['Bedroom 1 (king)','Bedroom 2 (king)','Bedroom 3 (king)','Bedroom 4 (king)','Bedroom 5 (4 singles)'];
+var ROOMS=['Nusa del Rey · Bedroom 1 (king)','Nusa del Rey · Bedroom 2 (king)','Nusa del Rey · Bedroom 3 (king)','Nusa del Rey · Bedroom 4 (king)','Nusa del Rey · Bedroom 5 (4 singles)','Villa Waru · Bedroom 1','Villa Waru · Bedroom 2','Villa Waru · Bedroom 3','Villa Waru · Bedroom 4'];
 var IDEAS=[
   {n:'Private snorkel boat, Captain Yin Yang',s:'IDR 3.1M for the boat, half day, gear included. Cheaper than shared for ten',u:'https://nusadelrey.my.canva.site/snorkelling-tour'},
   {n:'Shared snorkel tour',s:'IDR 350K a head, 7:30 to 11:30, Manta Point and Penida coast',u:'https://nusadelrey.my.canva.site/shared-snorkelling-tour'},
@@ -351,8 +391,8 @@ var IDEAS=[
   {n:'Seaweed farm experience',s:'IDR 350K a head, hands on, morning is best',u:'https://nusadelrey.my.canva.site/seaweed-farm-experience'},
   {n:'Spear fishing',s:'Early start, calm mornings',u:'https://nusadelrey.my.canva.site/spear-fishing'},
   {n:'In-villa spa afternoon',s:'Balinese massage 60 min IDR 220K, two tables so book in pairs',u:'https://nusadelrey.my.canva.site/spatreatments'},
-  {n:'Nyomans Warung buffet night',s:'Cheapest option, IDR 100K to 225K a head, 24 hours notice',u:'https://nusadelrey.my.canva.site/nyomans-warung'},
-  {n:'Private chef dinner',s:'The Feast or Chef Puspa, minimum 5, book through the villa',u:'https://nusadelrey.my.canva.site/private-chef-puspa'},
+  {n:'Nyomans Warung buffet night',s:'At Nusa del Rey. IDR 100K to 225K a head, 24 hours notice',u:'https://nusadelrey.my.canva.site/nyomans-warung'},
+  {n:'Private chef dinner',s:'At Nusa del Rey. The Feast or Chef Puspa, book through the villa',u:'https://nusadelrey.my.canva.site/private-chef-puspa'},
   {n:'Evening cocktail session',s:'Bar closes 5 pm unless pre-booked, IDR 1M minimum spend',u:'https://nusadelrey.my.canva.site/cocktail-menu'},
   {n:'Hire buggies for the day',s:'6 to 7 seater IDR 1M for 4 to 5 hours, or IDR 1.5M for 24 hours',u:'https://nusadelrey.my.canva.site/buggy-hire'},
   {n:'Hire scooters',s:'Scoopy IDR 100K a day, Nmax IDR 150K',u:'https://nusadelrey.my.canva.site/scooter-hire'},
@@ -363,17 +403,21 @@ var IDEAS=[
   {n:'Birthday setup at the villa',s:'Balloon display IDR 500K, mandala flowers IDR 200K, cakes from IDR 250K',u:'https://nusadelrey.my.canva.site/celebrations-at-nusa-del-rey'},
   {n:'Fire pit night at the villa',s:'Nothing on the agenda'}
 ];
+var FLIGHTS_DEFAULT=[
+  {id:'f1',who:'The Cuffs',dir:'Out',no:'JQ 110',route:'PER to DPS',date:'2026-11-14',dep:'06:50',arr:'10:30',n:'Jetstar A321LR, Perth T1 to Denpasar T1'},
+  {id:'f2',who:'The Cuffs',dir:'Home',no:'JQ 107',route:'DPS to PER',date:'2026-11-22',dep:'15:05',arr:'18:40',n:'Jetstar A321LR, Denpasar T1 to Perth T1'}
+];
 var PACK_DEFAULT=[
   ['Documents','Passport (6+ months validity)'],['Documents','Visa on arrival cash or e-VOA'],['Documents','Travel insurance details'],['Documents','Airbnb booking and boat tickets'],
   ['Beach','Reef-safe sunscreen'],['Beach','Rash vests and hats'],['Beach','Snorkel mask (own fit is better)'],['Beach','Reef shoes'],['Beach','Dry bag for the boat'],
   ['Health','Motion sickness tablets for the fast boat'],['Health','First aid, Imodium, rehydration sachets'],['Health','Mosquito repellent'],
   ['Villa','Bluetooth speaker'],['Villa','Cards and games for the fire pit'],['Villa','Power bank and Indonesian adapter'],['Villa','Camera gear'],
-  ['Money','Cash IDR for scooters and warungs'],['Money','Small AUD for the kitty']
+  ['Money','Cash IDR for scooters and warungs'],['Money','Villa Waru is cash only, IDR 39.69M, plan the withdrawal'],['Money','Small AUD for the kitty']
 ];
 var TODO_DEFAULT=[
   {t:'Send boat details to Rachel Anne for harbour pickup',d:'2026-11-07'},
   {t:'Book fast boat Sanur to Lembongan',d:'2026-10-15'},
-  {t:'Book flights Perth to Denpasar',d:''},
+  {t:'Everyone adds their flights to the app',d:'2026-10-15'},
   {t:'Confirm who is in which room',d:'2026-10-31'},
   {t:'Book snorkelling boat and any chef dinners',d:'2026-11-01'},
   {t:'Check passports have 6 months validity',d:'2026-10-01'},
@@ -384,7 +428,8 @@ var TODO_DEFAULT=[
 var S=load();
 function fresh(){
   return {
-    travel:{flightOut:'',flightBack:'',boat:'',hotelBali:''},
+    travel:{boat:'',boatBack:'',hotelBali:'',hotelAfter:''},
+    flights:FLIGHTS_DEFAULT.slice(),
     notes:'',
     plans:{},          // dayIndex -> {slot -> [ {t,n} ]}
     themes:{},         // dayIndex -> dress theme
@@ -394,7 +439,7 @@ function fresh(){
     todo:TODO_DEFAULT.map(function(t,i){return {id:'t'+i,t:t.t,d:t.d,done:false}}),
   };
 }
-function load(){try{var s=JSON.parse(localStorage.getItem(KEY));if(s&&s.pack){s.themes=s.themes||{};return s;}}catch(e){}return fresh();}
+function load(){try{var s=JSON.parse(localStorage.getItem(KEY));if(s&&s.pack){s.themes=s.themes||{};if(!s.flights)s.flights=FLIGHTS_DEFAULT.slice();return s;}}catch(e){}return fresh();}
 function save(){localStorage.setItem(KEY,JSON.stringify(S));}
 function uid(){return Math.random().toString(36).slice(2,9);}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]});}
@@ -419,11 +464,25 @@ function go(t){
 
 /* ---------- trip ---------- */
 function renderTrip(){
-  var f=[['flightOut','Flight out (Perth to Denpasar)','e.g. JQ 116, Fri 13 Nov 6:40 pm'],['hotelBali','Night in Bali before the boat','Hotel near Sanur if landing late'],['boat','Fast boat Sanur to Lembongan','Operator, time, booking ref'],['flightBack','Flight home','Sat 21 Nov, allow the boat back']];
-  document.getElementById('travelFields').innerHTML=f.map(function(x){return '<div><label class="f">'+x[1]+'</label><input data-tf="'+x[0]+'" value="'+esc(S.travel[x[0]])+'" placeholder="'+x[2]+'"></div>'}).join('');
+  var f=[['boat','Fast boat Sanur to Lembongan, Sat 14 Nov','Setia 1:30 pm or Rocky 2:00 pm suit a 10:30 landing'],['boatBack','Fast boat back to Sanur, Sat 21 Nov','Setia 12:30 pm or Rocky 1:00 pm work with an 11:30 checkout'],['hotelBali','Night in Bali before, only if your flight lands late','Hotel near Sanur'],['hotelAfter','Night in Sanur, Sat 21 Nov','Holiday Inn Bali Sanur is booked for Tammy and Brad']];
+  document.getElementById('travelFields').innerHTML=f.map(function(x){return '<div><label class="f">'+x[1]+'</label><input data-tf="'+x[0]+'" value="'+esc(S.travel[x[0]]||'')+'" placeholder="'+x[2]+'"></div>'}).join('');
   document.querySelectorAll('[data-tf]').forEach(function(i){i.oninput=function(){S.travel[i.dataset.tf]=i.value;save();}});
   var n=document.getElementById('tripNotes');n.value=S.notes;n.oninput=function(){S.notes=n.value;save();};
+  var fl=S.flights.slice().sort(function(a,b){return (a.date+a.dep)>(b.date+b.dep)?1:-1});
+  document.getElementById('flightList').innerHTML=fl.length?fl.map(function(f){return '<div class="item"><div class="lbl"><b>'+esc(f.who)+' · '+esc(f.no)+' '+esc(f.route)+'</b><small>'+(f.date?fmtDate(f.date)+', ':'')+esc(f.dep)+(f.arr?' to '+esc(f.arr):'')+(f.n?' · '+esc(f.n):'')+'</small></div><button class="icon" aria-label="Edit" onclick="openFlight(\''+f.id+'\')">✎</button><button class="icon del" aria-label="Remove" onclick="rmFlight(\''+f.id+'\')">×</button></div>'}).join(''):'<div class="empty">No flights yet.</div>';
 }
+function openFlight(id){
+  var f=id?S.flights.filter(function(x){return x.id===id})[0]:{who:'',dir:'Out',no:'',route:'PER to DPS',date:'2026-11-14',dep:'',arr:'',n:''};
+  sheet('<h3>'+(id?'Edit flight':'Add a flight')+'</h3>'+
+    '<label class="f">Who</label><input id="fl_w" value="'+esc(f.who)+'" placeholder="The Smiths, or your name">'+
+    '<div class="grid2"><div><label class="f">Flight number</label><input id="fl_no" value="'+esc(f.no)+'" placeholder="JQ 110"></div><div><label class="f">Route</label><input id="fl_r" value="'+esc(f.route)+'" placeholder="PER to DPS"></div></div>'+
+    '<label class="f">Date</label><input id="fl_d" type="date" value="'+esc(f.date)+'">'+
+    '<div class="grid2"><div><label class="f">Departs</label><input id="fl_dep" value="'+esc(f.dep)+'" placeholder="06:50"></div><div><label class="f">Arrives</label><input id="fl_arr" value="'+esc(f.arr)+'" placeholder="10:30"></div></div>'+
+    '<label class="f">Notes</label><input id="fl_n" value="'+esc(f.n)+'" placeholder="Airline, terminal, booking ref">'+
+    '<button class="btn full" style="margin-top:14px" onclick="saveFlight(\''+(id||'')+'\')">Save</button>');
+}
+function saveFlight(id){var w=v('fl_w'),no=v('fl_no');if(!w||!no)return;var o={id:id||uid(),who:w,no:no,route:v('fl_r'),date:v('fl_d'),dep:v('fl_dep'),arr:v('fl_arr'),n:v('fl_n')};if(id){S.flights=S.flights.map(function(f){return f.id===id?o:f})}else S.flights.push(o);save();renderTrip();closeModal();}
+function rmFlight(id){if(!confirm('Remove this flight?'))return;S.flights=S.flights.filter(function(f){return f.id!==id});save();renderTrip();}
 
 /* ---------- days ---------- */
 var curDay=0;
@@ -458,8 +517,9 @@ function openPlan(slot,ideaIdx){
 /* ---------- crew ---------- */
 function renderCrew(){
   var el=document.getElementById('crewList');
-  el.innerHTML=S.people.length?S.people.map(function(p){return '<div class="item"><div class="lbl"><b>'+esc(p.name)+'</b><small>'+[p.room,p.arrive,p.flight].filter(Boolean).map(esc).join(' · ')+'</small></div><button class="icon" aria-label="Edit" onclick="openPerson(\''+p.id+'\')">✎</button><button class="icon del" aria-label="Remove" onclick="rmPerson(\''+p.id+'\')">×</button></div>'}).join(''):'<div class="empty">Add everyone coming. Ten of you so far, by the look of the booking.</div>';
-  document.getElementById('roomList').innerHTML=ROOMS.map(function(r){var who=S.people.filter(function(p){return p.room===r}).map(function(p){return esc(p.name)});return '<div class="fact"><span>'+r+'</span><span>'+(who.length?who.join(', '):'<span class="sub">open</span>')+'</span></div>'}).join('');
+  el.innerHTML=S.people.length?S.people.map(function(p){return '<div class="item"><div class="lbl"><b>'+esc(p.name)+'</b><small>'+[p.room,p.arrive,p.flight].filter(Boolean).map(esc).join(' · ')+'</small></div><button class="icon" aria-label="Edit" onclick="openPerson(\''+p.id+'\')">✎</button><button class="icon del" aria-label="Remove" onclick="rmPerson(\''+p.id+'\')">×</button></div>'}).join(''):'<div class="empty">Add everyone coming. Eighteen beds across the two villas.</div>';
+  var rh='';var lastV='';ROOMS.forEach(function(r){var v=r.split(' · ')[0];if(v!==lastV){rh+='<div class="cat">'+v+'</div>';lastV=v;}var who=S.people.filter(function(p){return p.room===r}).map(function(p){return esc(p.name)});rh+='<div class="fact"><span>'+r.split(' · ')[1]+'</span><span>'+(who.length?who.join(', '):'<span class="sub">open</span>')+'</span></div>'});
+  document.getElementById('roomList').innerHTML=rh;
 }
 function openPerson(id){
   var p=id?S.people.filter(function(x){return x.id===id})[0]:{name:'',arrive:'',room:'',flight:''};
@@ -523,7 +583,7 @@ function openTodo(){sheet('<h3>Add a to do</h3><label class="f">What</label><inp
 /* ---------- ask ---------- */
 var VILLA_KNOWLEDGE=
 'AIRBNB LISTING: Oceanfront Villa | Pool | Breakfast | 6 Staff. Nusa del Rey, Sandy Bay, west side of Nusa Lembongan, Bali, Indonesia. Hosted by Rachel Anne (Superhost, 2 years hosting, 100% response rate, responds within an hour). Co-hosts: Rachel and Ita. Rated 5.0 from 35 reviews, Guest favourite, top 10% of homes.\n'+
-'Our booking: check-in Sat 14 Nov 2026 from 3:00 pm, checkout Sat 21 Nov 2026 by 10:00 am. Ten guests on the booking.\n'+
+'Our booking: check-in Sat 14 Nov 2026 from 3:00 pm, checkout Sat 21 Nov 2026 by 10:00 am. Ten guests on the Nusa del Rey booking, 8 more at Villa Waru next door, 18 in total.\n'+
 'Capacity: 12 guests, 5 bedrooms, 8 beds, 5 baths. Bedrooms 1 to 4 each have one king bed. Bedroom 5 has 4 single beds. Each bedroom has AC and luxe linen, four have their own ensuite. Spread across three pavilions.\n'+
 'Spaces: infinity pool (one of the few places in the area with a pool), open-air dining space, kitchen, gardens, private fire pit with sunset views, shared indoor and outdoor living areas. The entire villa is for guests.\n'+
 'Staff: six dedicated staff. They greet you at the harbour, handle bags, and are on hand throughout the stay. A night guard does evening turndown and secures the villa when you retire.\n'+
@@ -536,6 +596,9 @@ var VILLA_KNOWLEDGE=
 'Access: the villa has stairs and split levels and may not suit guests with mobility limitations.\n'+
 'Amenities include waterfront, kitchen, Wi-Fi, free parking, pool, and 58 amenities in total. Fully compliant with Bali villa regulations. NIB: 0907240005825.\n'+
 'Reviews most often mention hospitality, the view, location, breakfast, family friendliness, and the pool.\n'+
+'SECOND VILLA, VILLA WARU (next door to Nusa del Rey, Sunset Beach, 80771 Nusa Lembongan, GPS S 8 41.335 E 115 25.732, phone +62 812 3819 023): four bedroom beach-front villa for 8 adults, booked on Booking.com by Tammy Cuff, confirmation 6053.606.982 (Tammy holds the PIN). Check-in Sat 14 Nov from 1:00 pm, checkout Sat 21 Nov by 11:30 am. Breakfast included. Private pool, sea view, kitchen, air conditioning, free Wi-Fi and parking, wheelchair accessible ground floor. Price about AUD 3,146 (IDR 39,690,000) paid to the villa in IDR, cash only. Free cancellation until 10 Nov 2026, full charge from 11 Nov, dates cannot be changed. Activities and dress themes are for everyone across both villas; chef dinners and buffets are held at Nusa del Rey, the main villa.\n'+
+'NIGHT AFTER, HOLIDAY INN BALI SANUR by IHG (Jalan Kesuma Sari No. 4, Sanur, phone +62 361 2098999): Sat 21 to Sun 22 Nov, standard room for 2 adults (Tammy and Brad), extra-large double requested, no breakfast, about AUD 122. Check-in from 3:00 pm, checkout by 12:00 pm. Booking.com confirmation 5567.825.564 (Tammy holds the PIN). Free cancellation until 21 Oct 2026. Photo ID and credit card needed at check-in. The rest of the group still needs a plan for the night of the 21st.\n'+
+'THE CUFFS FLIGHTS (Brad and Tammy, Jetstar): JQ 110 Perth to Denpasar Sat 14 Nov, departs 06:50 Perth T1, arrives 10:30 Denpasar T1, Airbus A321LR, 3h 40m. JQ 107 Denpasar to Perth Sun 22 Nov, departs 15:05, arrives 18:40, 3h 35m. No night in Bali before the trip; the 10:30 landing connects to the 1:30 pm Setia or 2:00 pm Rocky fast boat from Sanur. Other guests add their own flights in the app.\n'+
 'NUSA DEL REY PAGES (linktr.ee/nusadelrey, each on nusadelrey.my.canva.site): getting-to-nusa-del-rey, welcome-book, celebrations-at-nusa-del-rey, breakfast, lite-bites, something-sweet, mini-bar-menu, cocktail-menu, mocktail-menu, nyomans-warung, the-feast-lembongan, private-chef-puspa, islandtour, spatreatments, scubadiving, snorkelling-tour, shared-snorkelling-tour, seaweed-farm-experience, spear-fishing, buggy-hire, scooter-hire. They also have Instagram and WhatsApp.';
 var BOOKLET_1=
 'GETTING TO NUSA DEL REY (arrival guide): Nusa Lembongan is reached by fast boat from Sanur Harbour. Two recommended operators.\n'+
@@ -590,10 +653,11 @@ function renderAsk(){
 function buildSystem(){
   var k=ALL_KNOWLEDGE;
   var people=S.people.map(function(p){return p.name+(p.room?' in '+p.room:'')}).join(', ');
+  var flights=S.flights.map(function(f){return f.who+' '+f.no+' '+f.route+' '+f.date+' '+f.dep+(f.arr?' to '+f.arr:'')}).join('; ');
   return 'You are the concierge for a group trip to Nusa del Rey, a villa on Nusa Lembongan, Bali, from Sat 14 Nov to Sat 21 Nov 2026. The group is flying from Perth, Australia. '+
   'Answer from the knowledge below first. If the answer is not there and it is something the villa\'s own pages would cover, use web_fetch on the matching page under nusadelrey.my.canva.site; if the fetch returns nothing useful, say so plainly and suggest the group paste that page in or message Rachel Anne on Airbnb or WhatsApp. For general island questions (beaches, Nusa Penida day trips, weather in November, fast boat operators from Sanur), you may use web_search. '+
   'Be concise and warm. Use plain sentences. Do not use em dashes. If you are unsure, say what you know and what to confirm with the host.\n\n'+
-  (people?'THE GROUP: '+people+'\n\n':'')+
+  (people?'THE GROUP (room allocations across both villas): '+people+'\n\n':'')+(flights?'FLIGHTS LOGGED IN THE APP: '+flights+'\n\n':'')+
   'KNOWLEDGE:\n'+k+'\n\nPAGE URLS: '+JSON.stringify(PAGE_URLS);
 }
 
@@ -650,14 +714,17 @@ function sheet(html){document.getElementById('sheet').innerHTML=html;document.ge
 function closeModal(){document.getElementById('modal').classList.remove('on');}
 function v(id){var e=document.getElementById(id);return e?e.value.trim():'';}
 function exportData(){var b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='nusa-del-rey-plan.json';a.click();toast('Backup saved');}
-function importData(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var s=JSON.parse(r.result);if(!s.pack)throw 0;delete s.knowledge;s.themes=s.themes||{};S=s;save();renderAll();toast('Plan loaded');}catch(e){toast('That file did not look right');}};r.readAsText(f);inp.value='';}
+function importData(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var s=JSON.parse(r.result);if(!s.pack)throw 0;delete s.knowledge;s.themes=s.themes||{};if(!s.flights)s.flights=FLIGHTS_DEFAULT.slice();S=s;save();renderAll();toast('Plan loaded');}catch(e){toast('That file did not look right');}};r.readAsText(f);inp.value='';}
 function resetAll(){if(!confirm('Clear everything and start again?'))return;S=fresh();save();renderAll();}
 function makePDF(){
   var pv=document.getElementById('printView');
   var people=S.people;
-  var h='<h1>Nusa del Rey, Nusa Lembongan</h1><div class="sub">Sat 14 Nov (check-in 3:00 pm) to Sat 21 Nov 2026 (checkout 10:00 am) · Sandy Bay · Hosted by Rachel Anne</div>';
-  var tr=[['Flight out',S.travel.flightOut],['Night in Bali',S.travel.hotelBali],['Fast boat',S.travel.boat],['Flight home',S.travel.flightBack]].filter(function(x){return x[1]});
-  if(tr.length||S.notes){h+='<h2>Getting there</h2><table>'+tr.map(function(x){return '<tr><th>'+x[0]+'</th><td>'+esc(x[1])+'</td></tr>'}).join('')+'</table>';if(S.notes)h+='<p>'+esc(S.notes).replace(/\n/g,'<br>')+'</p>';}
+  var h='<h1>Nusa Lembongan, November 2026</h1><div class="sub">Nusa del Rey and Villa Waru · Sat 14 to Sat 21 Nov · 18 of us across two villas</div>';
+  h+='<h2>At a glance</h2><table><tr><th>Sat 14 Nov</th><td>Fly in (Cuffs land 10:30 on JQ 110), fast boat from Sanur, check in to both villas (Nusa del Rey from 3 pm, Villa Waru from 1 pm)</td></tr><tr><th>14 to 21 Nov</th><td>Seven nights on Nusa Lembongan. Activities and dress themes for everyone; chef dinners at Nusa del Rey</td></tr><tr><th>Sat 21 Nov</th><td>Check out (Nusa del Rey 10 am, Villa Waru 11:30 am), boat to Sanur, Holiday Inn Bali Sanur</td></tr><tr><th>Sun 22 Nov</th><td>Fly home (Cuffs JQ 107 at 15:05)</td></tr></table>';
+  h+='<h2>Where we are staying</h2><table><tr><th>Nusa del Rey (main villa)</th><td>Sandy Bay. 5 bedrooms, sleeps 12, pool, fire pit, six staff, breakfast included. Host Rachel Anne via Airbnb.</td></tr><tr><th>Villa Waru (next door)</th><td>Sunset Beach. 4 bedrooms, 8 adults, pool, breakfast included. Ref 6053.606.982, +62 812 3819 023. Paid at the villa in IDR cash, about AUD 3,146.</td></tr><tr><th>Holiday Inn Bali Sanur</th><td>Sat 21 Nov, 2 adults, ref 5567.825.564, +62 361 2098999.</td></tr></table>';
+  if(S.flights.length){h+='<h2>Flights</h2><table><tr><th>Who</th><th>Flight</th><th>Date</th><th>Times</th><th>Notes</th></tr>'+S.flights.slice().sort(function(a,b){return (a.date+a.dep)>(b.date+b.dep)?1:-1}).map(function(f){return '<tr><td>'+esc(f.who)+'</td><td>'+esc(f.no)+' '+esc(f.route)+'</td><td>'+(f.date?fmtDate(f.date):'')+'</td><td>'+esc(f.dep)+(f.arr?' to '+esc(f.arr):'')+'</td><td>'+esc(f.n)+'</td></tr>'}).join('')+'</table>';}
+  var tr=[['Fast boat out',S.travel.boat],['Fast boat back',S.travel.boatBack],['Night in Bali before',S.travel.hotelBali],['Night in Sanur after',S.travel.hotelAfter]].filter(function(x){return x[1]});
+  if(tr.length||S.notes){h+='<h2>Travel</h2><table>'+tr.map(function(x){return '<tr><th>'+x[0]+'</th><td>'+esc(x[1])+'</td></tr>'}).join('')+'</table>';if(S.notes)h+='<p>'+esc(S.notes).replace(/\n/g,'<br>')+'</p>';}
   h+='<h2>Day by day</h2>';
   DAYS.forEach(function(d,i){
     var p=S.plans[i]||{};var has=SLOTS.some(function(s){return (p[s]||[]).length});
