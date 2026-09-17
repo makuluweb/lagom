@@ -90,6 +90,31 @@
   .fact span:first-child{color:var(--muted)}
   .empty{color:var(--muted);font-size:14px;padding:6px 0}
 
+  /* plan timeline */
+  .tl{position:relative;padding-left:26px}
+  .tl:before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--sand-deep)}
+  .tlday{position:relative;margin-bottom:12px}
+  .tlday:before{content:"";position:absolute;left:-23px;top:14px;width:12px;height:12px;border-radius:50%;background:var(--white);border:3px solid var(--ink2)}
+  .tlday.key:before{border-color:var(--coral);background:var(--coral)}
+  .tlday.fixed:before{border-color:var(--ink);background:var(--ink)}
+  .tlday .card{margin:0}
+  .tag{display:inline-block;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-left:6px;vertical-align:middle}
+  .tag.key{background:var(--coral);color:#fff}
+  .tag.suggested{background:var(--lagoon-soft);color:var(--ink2)}
+  .tag.fixed{background:var(--ink);color:#fff}
+  .tag.hosts{background:var(--sand-deep);color:var(--ink)}
+  .tlday ul{margin:6px 0 0 18px;padding:0}
+  .tlday li{margin:2px 0}
+  .tlday .meta{font-size:13px;color:var(--muted);margin-top:8px}
+  .tlday .meta a{color:var(--ink2)}
+  .rule{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .rule:last-child{border-bottom:0}
+  .rule b{font-family:'Fraunces',serif;font-size:20px;color:var(--coral);width:22px;flex:0 0 auto;line-height:1.1}
+  .planhead{background:var(--ink);color:var(--sand);border-radius:var(--r);padding:16px;margin-bottom:14px}
+  .planhead h2{margin:0;font-size:24px;font-weight:400;color:var(--white)}
+  .planhead .sub{color:#9FD1CC}
+  nav button{font-size:10.5px}
+
   /* days */
   .daystrip{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}
   .daystrip::-webkit-scrollbar{display:none}
@@ -172,6 +197,47 @@
     #printView .cols div{break-inside:avoid}
     #printView ul{margin:0 0 0 14pt;padding:0}
     #printView .foot{margin-top:18pt;font-size:9pt;color:#777}
+  }
+  @media print{
+    #printView.poster{font-family:'Karla',system-ui,sans-serif;color:#0F2F44;background:#CFEEF5;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:8mm 9mm;font-size:8.2pt;line-height:1.25;min-height:190mm;box-sizing:border-box}
+    #printView.poster *{box-sizing:border-box}
+    .po-head{text-align:center;margin-bottom:5mm}
+    .po-head h1{font-family:'Fraunces',Georgia,serif;font-size:30pt;font-weight:600;letter-spacing:-.01em;margin:0;color:#0F2F44;line-height:1}
+    .po-head h1 em{font-style:normal;color:#E5704B}
+    .po-head .k{font-size:12pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:1mm}
+    .po-head .s{font-size:8.5pt;color:#28516B;margin-top:1.5mm}
+    .po-side{position:absolute;top:8mm;font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:10pt;color:#28516B;width:38mm}
+    .po-side.l{left:9mm}.po-side.r{right:9mm;text-align:right}
+    .po-row{display:grid;gap:3.5mm;margin:0 0 2mm}
+    .po-row.top{grid-template-columns:repeat(5,1fr)}
+    .po-row.bot{grid-template-columns:repeat(4,1fr);padding:0 10%}
+    .po-line{height:2px;background:#0F2F44;margin:2.5mm 6mm 2.5mm;position:relative}
+    .po-line i{position:absolute;top:-4px;width:10px;height:10px;border-radius:50%;background:#fff;border:2.5px solid #0F2F44}
+    .po-card{background:#FBF6EC;border:1.5px solid #ffffff;border-radius:4mm;padding:2.6mm 2.8mm;min-height:32mm;page-break-inside:avoid}
+    .po-card .d{font-weight:700;font-size:8.5pt;text-align:center;color:#0F2F44}
+    .po-card .t{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:10pt;text-align:center;line-height:1.1;margin:.5mm 0 1.5mm}
+    .po-card.key .t{color:#D64A2A}
+    .po-card .tag{display:block;width:fit-content;margin:0 auto 1.5mm;border-radius:999px;padding:.6mm 3mm;font-size:6.8pt;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+    .po-card .tag.hosts{background:#0F2F44;color:#fff}.po-card .tag.suggested{background:#7FC4CF;color:#0F2F44}.po-card .tag.key{background:#E5704B;color:#fff}.po-card .tag.fixed{background:#0F2F44;color:#fff}
+    .po-card .th{font-size:7pt;color:#D64A2A;text-align:center;margin-bottom:1mm;font-style:italic}
+    .po-card ul{margin:0 0 0 3.5mm;padding:0}
+    .po-card li{margin:.4mm 0;font-size:7.6pt}
+    .po-foot{display:grid;grid-template-columns:3fr 2fr;gap:4mm;margin-top:3mm}
+    .po-rules{background:#0F2F44;color:#fff;border-radius:3mm;padding:2.5mm 3mm}
+    .po-rules h2{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;font-size:11pt;margin:0 0 2mm;color:#fff}
+    .po-rules .g{display:grid;grid-template-columns:repeat(5,1fr);gap:2mm}
+    .po-rules .g div{background:#fff;color:#0F2F44;border-radius:2mm;padding:2mm;font-size:7pt;line-height:1.2;display:flex;gap:1.5mm;align-items:flex-start}
+    .po-rules .g b{font-family:'Fraunces',Georgia,serif;font-size:11pt;color:#E5704B;line-height:1;flex:0 0 auto}
+    .po-sun{background:#fff;color:#0F2F44;border-radius:2mm;padding:2mm;margin-top:2mm;font-size:7.4pt;display:flex;gap:2mm;align-items:center}
+    .po-sun b{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;font-size:10.5pt;white-space:nowrap}
+    .po-ideas{background:#fff;border-radius:3mm;padding:2.5mm 3mm}
+    .po-ideas h2{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;font-size:11pt;margin:0 0 1.5mm;color:#0F2F44}
+    .po-ideas .g{columns:2;column-gap:3mm;font-size:7.6pt}
+    .po-ideas .g div{break-inside:avoid;padding:.5mm 0;border-bottom:1px solid #E6EEF2}
+    .po-base{display:flex;justify-content:space-between;align-items:center;margin-top:3mm;font-size:7.4pt;color:#28516B}
+    .po-base .tag2{font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:10pt;color:#0F2F44}
+    @page poster{size:A4 landscape;margin:0}
+    #printView.poster{page:poster}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
   @media (min-width:700px){main{max-width:560px;margin:0 auto}.hero{max-width:560px;margin:0 auto;border-radius:0 0 26px 26px}nav{max-width:560px;margin:0 auto;border-left:1px solid var(--line);border-right:1px solid var(--line)}}
@@ -283,6 +349,28 @@
   </div>
 </section>
 
+<!-- PLAN -->
+<section data-tab="plan">
+  <div class="planhead">
+    <h2 id="planTitle"></h2>
+    <div class="sub" id="planSub"></div>
+  </div>
+  <button class="btn full coral" style="margin-bottom:14px" onclick="makePoster()">Export plan as poster PDF</button>
+  <div class="tl" id="planTimeline"></div>
+  <div class="card">
+    <div class="row between"><h3>How this trip works</h3><button class="icon" aria-label="Edit" onclick="openRules()">✎</button></div>
+    <div id="planRules"></div>
+  </div>
+  <div class="card tint">
+    <h3>Sunset drinks</h3>
+    <p class="sub" id="planSunset"></p>
+  </div>
+  <div class="card">
+    <h3>Optional island ideas</h3>
+    <div id="planIdeas" class="chips"></div>
+  </div>
+</section>
+
 <!-- DAYS -->
 <section data-tab="days">
   <div class="daystrip" id="dayStrip"></div>
@@ -355,6 +443,7 @@
 
 <nav>
   <button data-go="trip" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Trip</button>
+  <button data-go="plan"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="19" cy="18" r="2"/></svg>Plan</button>
   <button data-go="days"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Days</button>
   <button data-go="crew"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-5-6.3"/></svg>Crew</button>
   <button data-go="pack"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3M3 13h18"/></svg>Pack</button>
@@ -407,6 +496,34 @@ var FLIGHTS_DEFAULT=[
   {id:'f1',who:'The Cuffs',dir:'Out',no:'JQ 110',route:'PER to DPS',date:'2026-11-14',dep:'06:50',arr:'10:30',n:'Jetstar A321LR, Perth T1 to Denpasar T1'},
   {id:'f2',who:'The Cuffs',dir:'Home',no:'JQ 107',route:'DPS to PER',date:'2026-11-22',dep:'15:05',arr:'18:40',n:'Jetstar A321LR, Denpasar T1 to Perth T1'}
 ];
+var AGENDA_DEFAULT={
+  title:"Tammy's 50th, Lembongan Birthday Bash",
+  sub:'14 to 22 November 2026 · 9 days · Nusa Lembongan and Sanur · villa-based holiday, key events highlighted',
+  ideas:['Dream Beach','Mushroom Bay','Devil\'s Tears','Seaweed farms','Mahana Point cliff jump','Ceningan explore','Ceningan cliffside pool adventure','Spa and shopping','Mini golf','Dining and sunset drinks'],
+  stay:'Nusa del Rey and Villa Waru (14 to 21 Nov) · Holiday Inn Bali Sanur (21 to 22 Nov)',
+  tagline:'Same crew. A little further.',
+  link:'makuluweb.github.io/lagom/nusa.html',
+  sunset:'Each day we catch up for sunset drinks somewhere on the island. The perfect time to relax, share the day\'s adventures and enjoy the view.',
+  rules:[
+    'It\'s your holiday. Join as much or as little as you like.',
+    'Key events are the main together moments, especially Tammy\'s 50th.',
+    'Nothing formally planned until after brekkie.',
+    'Daily itinerary and meal planning will be refined each day at brekkie.',
+    'Weather may reshuffle things. No pressure.'
+  ],
+  days:[
+    {d:'2026-11-14',title:'Travel Day',tag:'hosts',pts:['Jetstar JQ 110, PER 6:50 am to DPS 10:30 am','Transfer to Sanur','1:30 pm ferry to Nusa Lembongan','Villa check-in, dinner at villa']},
+    {d:'2026-11-15',title:'Explore Day',tag:'suggested',pts:['Spa or pedicure','Get bikes','Book diving around the weather']},
+    {d:'2026-11-16',title:'Scooter and Explore',tag:'suggested',pts:['Lembongan and Ceningan island exploring','Beach hopping']},
+    {d:'2026-11-17',title:"Tammy's Party Day",tag:'key',pts:['Beach boho / retro pool party vibes','Theme day, matching sets','Main together celebration']},
+    {d:'2026-11-18',title:'Flexible Day',tag:'suggested',pts:['Mini golf?','Relax, explore or pool time']},
+    {d:'2026-11-19',title:'Snorkel / Dive Day',tag:'key',pts:['Hire a boat','Snorkel or dive trip, likely off Nusa Penida','Weather dependent']},
+    {d:'2026-11-20',title:'Birthday Bash',tag:'key',pts:['Big birthday celebration for all the tag-alongs','White Party','Group dinner and party night']},
+    {d:'2026-11-21',title:'Transfer to Sanur',tag:'fixed',pts:['Check out Nusa del Rey 10:00 am, Villa Waru 11:30 am','Return boat to Sanur','Holiday Inn Bali Sanur','Beach dinner and shopping']},
+    {d:'2026-11-22',title:'Fly Home',tag:'hosts',pts:['Check out 12:00 pm','Jetstar JQ 107, DPS 3:05 pm to PER 6:40 pm']}
+  ]
+};
+var TAGS={hosts:'Hosts in/out',suggested:'Suggested',key:'Key event',fixed:'Fixed'};
 var PACK_DEFAULT=[
   ['Documents','Passport (6+ months validity)'],['Documents','Visa on arrival cash or e-VOA'],['Documents','Travel insurance details'],['Documents','Airbnb booking and boat tickets'],
   ['Beach','Reef-safe sunscreen'],['Beach','Rash vests and hats'],['Beach','Snorkel mask (own fit is better)'],['Beach','Reef shoes'],['Beach','Dry bag for the boat'],
@@ -430,6 +547,7 @@ function fresh(){
   return {
     travel:{boat:'',boatBack:'',hotelBali:'',hotelAfter:''},
     flights:FLIGHTS_DEFAULT.slice(),
+    agenda:JSON.parse(JSON.stringify(AGENDA_DEFAULT)),
     notes:'',
     plans:{},          // dayIndex -> {slot -> [ {t,n} ]}
     themes:{},         // dayIndex -> dress theme
@@ -439,7 +557,7 @@ function fresh(){
     todo:TODO_DEFAULT.map(function(t,i){return {id:'t'+i,t:t.t,d:t.d,done:false}}),
   };
 }
-function load(){try{var s=JSON.parse(localStorage.getItem(KEY));if(s&&s.pack){s.themes=s.themes||{};if(!s.flights)s.flights=FLIGHTS_DEFAULT.slice();return s;}}catch(e){}return fresh();}
+function load(){try{var s=JSON.parse(localStorage.getItem(KEY));if(s&&s.pack){s.themes=s.themes||{};if(!s.flights)s.flights=FLIGHTS_DEFAULT.slice();if(!s.agenda)s.agenda=JSON.parse(JSON.stringify(AGENDA_DEFAULT));['ideas','stay','tagline','link'].forEach(function(k){if(s.agenda[k]==null)s.agenda[k]=AGENDA_DEFAULT[k]});return s;}}catch(e){}return fresh();}
 function save(){localStorage.setItem(KEY,JSON.stringify(S));}
 function uid(){return Math.random().toString(36).slice(2,9);}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]});}
@@ -492,7 +610,7 @@ function renderDays(){
   var h='<div class="row between"><h3>'+d.lbl+' '+d.num+' Nov'+(d.title?' <span class="sub">· '+d.title+'</span>':'')+'</h3></div>';
   if(curDay===0)h+='<p class="sub">Check-in from 3:00 pm. Villa staff meet the boat at the harbour.</p>';
   if(curDay===7)h+='<p class="sub">Checkout by 10:00 am. Breakfast first, then the boat back to Sanur.</p>';
-  h+='<div style="margin:10px 0 4px"><label class="f">Dress theme</label><input value="'+esc(S.themes[curDay]||'')+'" placeholder="White linen, tropical prints, 70s disco..." oninput="S.themes['+curDay+']=this.value;save();" onchange="renderDays()"></div>';
+  h+='<div style="margin:10px 0 4px"><label class="f">Dress theme</label><input value="'+esc(S.themes[curDay]||'')+'" placeholder="White linen, tropical prints, 70s disco..." oninput="S.themes['+curDay+']=this.value;save();" onchange="renderDays();renderPlan()"></div>';
   SLOTS.forEach(function(sl){
     var items=p[sl]||[];
     h+='<div class="slot"><div class="name">'+sl+'</div>';
@@ -502,8 +620,8 @@ function renderDays(){
   document.getElementById('dayCard').innerHTML=h;
   document.getElementById('ideaList').innerHTML=IDEAS.map(function(x,i){return '<div class="idea"><div><b>'+esc(x.n)+'</b><small>'+esc(x.s)+(x.u?' · <a href="'+x.u+'" target="_blank">details</a>':'')+'</small></div><button class="btn sm" onclick="openPlan(null,'+i+')">Add</button></div>'}).join('');
 }
-function addPlan(day,slot,t,n){S.plans[day]=S.plans[day]||{};S.plans[day][slot]=S.plans[day][slot]||[];S.plans[day][slot].push({t:t,n:n||''});save();renderDays();toast('Added to '+DAYS[day].lbl+' '+DAYS[day].num);}
-function rmPlan(day,slot,j){S.plans[day][slot].splice(j,1);save();renderDays();}
+function addPlan(day,slot,t,n){S.plans[day]=S.plans[day]||{};S.plans[day][slot]=S.plans[day][slot]||[];S.plans[day][slot].push({t:t,n:n||''});save();renderDays();renderPlan();toast('Added to '+DAYS[day].lbl+' '+DAYS[day].num);}
+function rmPlan(day,slot,j){S.plans[day][slot].splice(j,1);save();renderDays();renderPlan();}
 function openPlan(slot,ideaIdx){
   var idea=ideaIdx!=null?IDEAS[ideaIdx]:null;
   sheet('<h3>'+(idea?'Add to a day':'Add a plan')+'</h3>'+
@@ -512,6 +630,48 @@ function openPlan(slot,ideaIdx){
     '<label class="f">When</label><select id="pl_s">'+SLOTS.map(function(s){return '<option'+(s===slot?' selected':'')+'>'+s+'</option>'}).join('')+'</select>'+
     '<label class="f">Notes</label><input id="pl_n" value="'+esc(idea?idea.s:'')+'" placeholder="Time, who is booking, cost">'+
     '<button class="btn full" style="margin-top:14px" onclick="var t=v(\'pl_t\');if(!t)return;addPlan(+v(\'pl_d\'),v(\'pl_s\'),t,v(\'pl_n\'));closeModal()">Add to plan</button>');
+}
+
+/* ---------- plan ---------- */
+function dayLabel(d){var x=new Date(d+'T00:00');return x.toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short'});}
+function renderPlan(){
+  var A=S.agenda;
+  document.getElementById('planTitle').textContent=A.title;
+  document.getElementById('planSub').textContent=A.sub;
+  document.getElementById('planSunset').textContent=A.sunset;
+  document.getElementById('planTimeline').innerHTML=A.days.map(function(day,i){
+    var di=DAYS.findIndex(function(x){return x.d===day.d});
+    var extra=0;if(di>=0){var p=S.plans[di]||{};SLOTS.forEach(function(s){extra+=(p[s]||[]).length});}
+    var theme=di>=0?S.themes[di]:'';
+    return '<div class="tlday '+day.tag+'"><div class="card">'+
+      '<div class="row between"><div><div class="sub">'+dayLabel(day.d)+'</div><h3 style="margin:2px 0 0">'+esc(day.title)+'<span class="tag '+day.tag+'">'+TAGS[day.tag]+'</span></h3></div><button class="icon" aria-label="Edit" onclick="openAgenda('+i+')">✎</button></div>'+
+      (theme?'<div class="sub" style="color:var(--coral);margin-top:4px">Dress theme: '+esc(theme)+'</div>':'')+
+      '<ul>'+day.pts.map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul>'+
+      (di>=0?'<div class="meta">'+(extra?extra+' item'+(extra>1?'s':'')+' in the day planner. ':'')+'<a href="#" onclick="curDay='+di+';go(\'days\');renderDays();return false">Open in Days</a></div>':'')+
+      '</div></div>';
+  }).join('');
+  document.getElementById('planIdeas').innerHTML=(A.ideas||[]).map(function(x){return '<span class="chip">'+esc(x)+'</span>'}).join('')||'<span class="empty">None yet</span>';
+  document.getElementById('planRules').innerHTML=A.rules.map(function(r,i){return '<div class="rule"><b>'+(i+1)+'</b><span>'+esc(r)+'</span></div>'}).join('');
+}
+function openAgenda(i){
+  var d=S.agenda.days[i];
+  sheet('<h3>'+dayLabel(d.d)+'</h3>'+
+    '<label class="f">Day title</label><input id="ag_t" value="'+esc(d.title)+'">'+
+    '<label class="f">Type</label><select id="ag_g">'+Object.keys(TAGS).map(function(k){return '<option value="'+k+'"'+(k===d.tag?' selected':'')+'>'+TAGS[k]+'</option>'}).join('')+'</select>'+
+    '<label class="f">Points, one per line</label><textarea id="ag_p" style="min-height:130px">'+esc(d.pts.join('\n'))+'</textarea>'+
+    '<button class="btn full" style="margin-top:14px" onclick="var t=v(\'ag_t\');if(!t)return;S.agenda.days['+i+'].title=t;S.agenda.days['+i+'].tag=v(\'ag_g\');S.agenda.days['+i+'].pts=v(\'ag_p\').split(/\\n/).map(function(x){return x.trim()}).filter(Boolean);save();renderPlan();closeModal()">Save</button>');
+}
+function openRules(){
+  var A=S.agenda;
+  sheet('<h3>Edit the plan header</h3>'+
+    '<label class="f">Title</label><input id="ru_t" value="'+esc(A.title)+'">'+
+    '<label class="f">Subtitle</label><input id="ru_s" value="'+esc(A.sub)+'">'+
+    '<label class="f">How this trip works, one rule per line</label><textarea id="ru_r" style="min-height:130px">'+esc(A.rules.join('\n'))+'</textarea>'+
+    '<label class="f">Sunset drinks</label><textarea id="ru_x">'+esc(A.sunset)+'</textarea>'+
+    '<label class="f">Optional island ideas, one per line</label><textarea id="ru_i" style="min-height:110px">'+esc((A.ideas||[]).join('\n'))+'</textarea>'+
+    '<label class="f">Stay line (poster footer)</label><input id="ru_st" value="'+esc(A.stay||'')+'">'+
+    '<label class="f">Tagline</label><input id="ru_tg" value="'+esc(A.tagline||'')+'">'+
+    '<button class="btn full" style="margin-top:14px" onclick="S.agenda.title=v(\'ru_t\');S.agenda.sub=v(\'ru_s\');S.agenda.rules=v(\'ru_r\').split(/\\n/).map(function(x){return x.trim()}).filter(Boolean);S.agenda.sunset=v(\'ru_x\');S.agenda.ideas=v(\'ru_i\').split(/\\n/).map(function(x){return x.trim()}).filter(Boolean);S.agenda.stay=v(\'ru_st\');S.agenda.tagline=v(\'ru_tg\');save();renderPlan();closeModal()">Save</button>');
 }
 
 /* ---------- crew ---------- */
@@ -714,7 +874,7 @@ function sheet(html){document.getElementById('sheet').innerHTML=html;document.ge
 function closeModal(){document.getElementById('modal').classList.remove('on');}
 function v(id){var e=document.getElementById(id);return e?e.value.trim():'';}
 function exportData(){var b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='nusa-del-rey-plan.json';a.click();toast('Backup saved');}
-function importData(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var s=JSON.parse(r.result);if(!s.pack)throw 0;delete s.knowledge;s.themes=s.themes||{};if(!s.flights)s.flights=FLIGHTS_DEFAULT.slice();S=s;save();renderAll();toast('Plan loaded');}catch(e){toast('That file did not look right');}};r.readAsText(f);inp.value='';}
+function importData(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var s=JSON.parse(r.result);if(!s.pack)throw 0;delete s.knowledge;s.themes=s.themes||{};if(!s.flights)s.flights=FLIGHTS_DEFAULT.slice();if(!s.agenda)s.agenda=JSON.parse(JSON.stringify(AGENDA_DEFAULT));['ideas','stay','tagline','link'].forEach(function(k){if(s.agenda[k]==null)s.agenda[k]=AGENDA_DEFAULT[k]});S=s;save();renderAll();toast('Plan loaded');}catch(e){toast('That file did not look right');}};r.readAsText(f);inp.value='';}
 function resetAll(){if(!confirm('Clear everything and start again?'))return;S=fresh();save();renderAll();}
 function makePDF(){
   var pv=document.getElementById('printView');
@@ -725,6 +885,10 @@ function makePDF(){
   if(S.flights.length){h+='<h2>Flights</h2><table><tr><th>Who</th><th>Flight</th><th>Date</th><th>Times</th><th>Notes</th></tr>'+S.flights.slice().sort(function(a,b){return (a.date+a.dep)>(b.date+b.dep)?1:-1}).map(function(f){return '<tr><td>'+esc(f.who)+'</td><td>'+esc(f.no)+' '+esc(f.route)+'</td><td>'+(f.date?fmtDate(f.date):'')+'</td><td>'+esc(f.dep)+(f.arr?' to '+esc(f.arr):'')+'</td><td>'+esc(f.n)+'</td></tr>'}).join('')+'</table>';}
   var tr=[['Fast boat out',S.travel.boat],['Fast boat back',S.travel.boatBack],['Night in Bali before',S.travel.hotelBali],['Night in Sanur after',S.travel.hotelAfter]].filter(function(x){return x[1]});
   if(tr.length||S.notes){h+='<h2>Travel</h2><table>'+tr.map(function(x){return '<tr><th>'+x[0]+'</th><td>'+esc(x[1])+'</td></tr>'}).join('')+'</table>';if(S.notes)h+='<p>'+esc(S.notes).replace(/\n/g,'<br>')+'</p>';}
+  var A=S.agenda;
+  h+='<h2>'+esc(A.title)+'</h2><div class="sub">'+esc(A.sub)+'</div>';
+  h+='<table><tr><th>Day</th><th>Plan</th><th></th></tr>'+A.days.map(function(d){return '<tr><td><b>'+dayLabel(d.d)+'</b><br><small>'+esc(d.title)+'</small></td><td>'+d.pts.map(esc).join('<br>')+'</td><td><small>'+TAGS[d.tag]+'</small></td></tr>'}).join('')+'</table>';
+  h+='<p style="margin-top:6pt"><b>How this trip works.</b> '+A.rules.map(esc).join(' ')+'</p><p><b>Sunset drinks.</b> '+esc(A.sunset)+'</p>';
   h+='<h2>Day by day</h2>';
   DAYS.forEach(function(d,i){
     var p=S.plans[i]||{};var has=SLOTS.some(function(s){return (p[s]||[]).length});
@@ -751,11 +915,28 @@ function makePDF(){
     '<tr><th>Private snorkel boat</th><td>Captain Komang +62 813 5335 5215</td></tr>'+
     '<tr><th>Diving</th><td>Siren Diving, WhatsApp +62 811 380 2277</td></tr></table>';
   h+='<div class="foot">Bar and lite bites run to 5 pm; evening cocktails need pre-booking (IDR 1M minimum). Chef dinners and buffets need 24 hours notice. Generated '+new Date().toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'})+'.</div>';
-  pv.innerHTML=h;
+  pv.className='';pv.innerHTML=h;
   toast('Choose Save as PDF or Share in the print sheet');
   setTimeout(function(){window.print()},300);
 }
-function renderAll(){renderTrip();renderDays();renderCrew();renderPack();renderKitty();renderTodo();renderAsk();}
+function makePoster(){
+  var A=S.agenda;var pv=document.getElementById('printView');
+  var top=[],bot=[];A.days.forEach(function(d,i){(i%2===0?top:bot).push(d)});
+  function card(d){var di=DAYS.findIndex(function(x){return x.d===d.d});var th=di>=0?S.themes[di]:'';return '<div class="po-card '+d.tag+'"><div class="d">'+dayLabel(d.d)+'</div><div class="t">'+esc(d.title)+'</div><span class="tag '+d.tag+'">'+TAGS[d.tag]+'</span>'+(th?'<div class="th">Dress: '+esc(th)+'</div>':'')+'<ul>'+d.pts.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></div>'}
+  var title=esc(A.title).replace(/(\d+(st|nd|rd|th))/,'<em>$1</em>');
+  var hd='<div class="po-side l">Good friends, brighter adventures</div><div class="po-side r">Same people, more paradise</div>';
+  var hh='<div class="po-head"><h1>'+title+'</h1><div class="k">Suggested group itinerary</div><div class="s">'+esc(A.sub)+'</div></div>';
+  var rows='<div class="po-row top">'+top.map(card).join('')+'</div>'+
+    '<div class="po-line">'+[5,16,27,38,50,61,72,83,94].map(function(x){return '<i style="left:'+x+'%"></i>'}).join('')+'</div>'+
+    '<div class="po-row bot">'+bot.map(card).join('')+'</div>';
+  var foot='<div class="po-foot"><div><div class="po-rules"><h2>How this trip works</h2><div class="g">'+A.rules.map(function(r,i){return '<div><b>'+(i+1)+'</b><span>'+esc(r)+'</span></div>'}).join('')+'</div><div class="po-sun"><b>Sunset drinks</b><span>'+esc(A.sunset)+'</span></div></div></div>'+
+    '<div class="po-ideas"><h2>Optional island ideas</h2><div class="g">'+(A.ideas||[]).map(function(x){return '<div>'+esc(x)+'</div>'}).join('')+'</div></div></div>';
+  var base='<div class="po-base"><span>Stay: '+esc(A.stay||'')+'</span><span class="tag2">'+esc(A.tagline||'')+'</span><span>Trip guide: '+esc(A.link||'')+'</span></div>';
+  pv.className='poster';pv.innerHTML=hd+hh+rows+foot+base;
+  toast('Landscape works best. Save as PDF or Share');
+  setTimeout(function(){window.print();setTimeout(function(){pv.className='';},1500);},300);
+}
+function renderAll(){renderTrip();renderPlan();renderDays();renderCrew();renderPack();renderKitty();renderTodo();renderAsk();}
 renderAll();
 </script>
 </body>
