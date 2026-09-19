@@ -92,6 +92,18 @@
   .fact span:first-child{color:var(--muted)}
   .empty{color:var(--muted);font-size:14px;padding:6px 0}
 
+  /* island map */
+  #islandMap svg{width:100%;height:auto;display:block;border-radius:10px;background:#CDEBEE}
+  #islandMap .pin{cursor:pointer}
+  #islandMap .pin text{font-family:'Karla',sans-serif;font-size:12px;font-weight:700;fill:#0F3B47;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
+  #islandMap .pin.on circle{stroke:#0F3B47;stroke-width:3}
+  #islandMap .lbl{font-family:'Fraunces',serif;font-style:italic;font-size:13px;fill:#16515F}
+  #islandMap .sea{font-family:'Karla',sans-serif;font-size:11px;fill:#3E7C86;letter-spacing:.08em;text-transform:uppercase}
+  .po-map svg{width:100%;height:auto;display:block;border-radius:2mm;background:#BFE6EC}
+  .po-map .pin text{font-family:'Karla',sans-serif;font-size:21px;font-weight:700;fill:#0F2F44;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
+  .po-map .lbl{font-family:'Fraunces',serif;font-style:italic;font-size:24px;fill:#28516B}
+  .po-map .sea{font-family:'Karla',sans-serif;font-size:17px;fill:#3E7C86;letter-spacing:.08em}
+
   /* plan timeline */
   .tl{position:relative;padding-left:26px}
   .tl:before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--sand-deep)}
@@ -201,21 +213,21 @@
     #printView .foot{margin-top:18pt;font-size:9pt;color:#777}
   }
   @media print{
-    #printView.poster{font-family:'Karla',system-ui,sans-serif;color:#0F2F44;background:#CFEEF5;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:8mm 9mm;font-size:8.2pt;line-height:1.25;min-height:190mm;box-sizing:border-box}
+    #printView.poster{font-family:'Karla',system-ui,sans-serif;color:#0F2F44;background:#CFEEF5;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:7mm 9mm 6mm;font-size:8pt;line-height:1.22;width:297mm;height:210mm;overflow:hidden;box-sizing:border-box;position:relative;zoom:1.4142;transform-origin:top left}
     #printView.poster *{box-sizing:border-box}
-    .po-head{text-align:center;margin-bottom:5mm}
-    .po-head h1{font-family:'Fraunces',Georgia,serif;font-size:30pt;font-weight:600;letter-spacing:-.01em;margin:0;color:#0F2F44;line-height:1}
+    .po-head{text-align:center;margin-bottom:3mm}
+    .po-head h1{font-family:'Fraunces',Georgia,serif;font-size:27pt;font-weight:600;letter-spacing:-.01em;margin:0;color:#0F2F44;line-height:1}
     .po-head h1 em{font-style:normal;color:#E5704B}
     .po-head .k{font-size:12pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:1mm}
     .po-head .s{font-size:8.5pt;color:#28516B;margin-top:1.5mm}
-    .po-side{position:absolute;top:8mm;font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:10pt;color:#28516B;width:38mm}
+    .po-side{position:absolute;top:6mm;font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:10pt;color:#28516B;width:38mm}
     .po-side.l{left:9mm}.po-side.r{right:9mm;text-align:right}
     .po-row{display:grid;gap:3.5mm;margin:0 0 2mm}
     .po-row.top{grid-template-columns:repeat(5,1fr)}
     .po-row.bot{grid-template-columns:repeat(4,1fr);padding:0 10%}
-    .po-line{height:2px;background:#0F2F44;margin:2.5mm 6mm 2.5mm;position:relative}
+    .po-line{height:2px;background:#0F2F44;margin:2mm 6mm 2mm;position:relative}
     .po-line i{position:absolute;top:-4px;width:10px;height:10px;border-radius:50%;background:#fff;border:2.5px solid #0F2F44}
-    .po-card{background:#FBF6EC;border:1.5px solid #ffffff;border-radius:4mm;padding:2.6mm 2.8mm;min-height:32mm;page-break-inside:avoid}
+    .po-card{background:#FBF6EC;border:1.5px solid #ffffff;border-radius:4mm;padding:2.4mm 2.8mm;min-height:30mm;page-break-inside:avoid}
     .po-card .d{font-weight:700;font-size:8.5pt;text-align:center;color:#0F2F44}
     .po-card .t{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:10pt;text-align:center;line-height:1.1;margin:.5mm 0 1.5mm}
     .po-card.key .t{color:#D64A2A}
@@ -224,21 +236,22 @@
     .po-card .th{font-size:7pt;color:#D64A2A;text-align:center;margin-bottom:1mm;font-style:italic}
     .po-card ul{margin:0 0 0 3.5mm;padding:0}
     .po-card li{margin:.4mm 0;font-size:7.6pt}
-    .po-foot{display:grid;grid-template-columns:3fr 2fr;gap:4mm;margin-top:3mm}
+    .po-foot{display:grid;grid-template-columns:2.4fr 1fr 1.5fr;gap:3mm;margin-top:3mm;align-items:start}
+    .po-map{background:#fff;border-radius:3mm;padding:1.5mm;max-width:66mm;margin:0 auto}
     .po-rules{background:#0F2F44;color:#fff;border-radius:3mm;padding:2.5mm 3mm}
     .po-rules h2{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;font-size:11pt;margin:0 0 2mm;color:#fff}
-    .po-rules .g{display:grid;grid-template-columns:repeat(5,1fr);gap:2mm}
+    .po-rules .g{display:grid;grid-template-columns:repeat(5,1fr);gap:1.5mm}
     .po-rules .g div{background:#fff;color:#0F2F44;border-radius:2mm;padding:2mm;font-size:7pt;line-height:1.2;display:flex;gap:1.5mm;align-items:flex-start}
     .po-rules .g b{font-family:'Fraunces',Georgia,serif;font-size:11pt;color:#E5704B;line-height:1;flex:0 0 auto}
     .po-sun{background:#fff;color:#0F2F44;border-radius:2mm;padding:2mm;margin-top:2mm;font-size:7.4pt;display:flex;gap:2mm;align-items:center}
     .po-sun b{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;font-size:10.5pt;white-space:nowrap}
     .po-ideas{background:#fff;border-radius:3mm;padding:2.5mm 3mm}
     .po-ideas h2{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;font-size:11pt;margin:0 0 1.5mm;color:#0F2F44}
-    .po-ideas .g{columns:2;column-gap:3mm;font-size:7.6pt}
-    .po-ideas .g div{break-inside:avoid;padding:.5mm 0;border-bottom:1px solid #E6EEF2}
-    .po-base{display:flex;justify-content:space-between;align-items:center;margin-top:3mm;font-size:7.4pt;color:#28516B}
+    .po-ideas .g{columns:1;font-size:7.2pt}
+    .po-ideas .g div{break-inside:avoid;padding:.3mm 0;border-bottom:1px solid #E6EEF2}
+    .po-base{display:flex;justify-content:space-between;align-items:center;margin-top:2mm;font-size:7.2pt;color:#28516B}
     .po-base .tag2{font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:10pt;color:#0F2F44}
-    @page poster{size:A4 landscape;margin:0}
+    @page poster{size:A3 landscape;margin:0}
     #printView.poster{page:poster}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -358,6 +371,10 @@
     <div class="sub" id="planSub"></div>
   </div>
   <button class="btn full coral" style="margin-bottom:14px" onclick="makePoster()">Export plan as poster PDF</button>
+  <div class="card" style="padding:12px">
+    <div id="islandMap"></div>
+    <div id="mapInfo" class="sub" style="margin-top:8px;min-height:20px">Tap a pin.</div>
+  </div>
   <div class="tl" id="planTimeline"></div>
   <div class="card">
     <div class="row between"><h3>How this trip works</h3><button class="icon" aria-label="Edit" onclick="openRules()">✎</button></div>
@@ -525,6 +542,57 @@ var AGENDA_DEFAULT={
     {d:'2026-11-22',title:'Fly Home',tag:'hosts',pts:['Check out 12:00 pm','Jetstar JQ 107, DPS 3:05 pm to PER 6:40 pm']}
   ]
 };
+var PLACES=[
+  {id:'villas',n:'Our villas',lat:-8.6883,lon:115.4287,k:'villa',s:'Nusa del Rey (main villa, chef dinners, fire pit) and Villa Waru next door, on Sandy Bay / Sunset Beach.'},
+  {id:'sbbc',n:'Sandy Bay Beach Club',lat:-8.6888,lon:115.4300,k:'spot',s:'Walking distance. Sunset drinks, pool, kids area. Book a table.'},
+  {id:'devil',n:"Devil's Tear",lat:-8.6906,lon:115.4303,k:'spot',s:'Blowhole cliffs, best at sunset, IDR 25K entry. Stay behind the barriers.'},
+  {id:'dream',n:'Dream Beach',lat:-8.6910,lon:115.4332,k:'spot',s:'White sand cove. Big shore break, swim in the morning at high tide.'},
+  {id:'mush',n:'Mushroom Bay',lat:-8.6823,lon:115.4335,k:'spot',s:'Calm, family-friendly swimming and warungs.'},
+  {id:'jb',n:'Jungut Batu',lat:-8.6709,lon:115.4477,k:'harbour',s:'Setia fast boat lands here on the beach. Bars and restaurants along the sand.'},
+  {id:'telatak',n:'Telatak Harbour',lat:-8.6844,lon:115.4599,k:'harbour',s:'Rocky Fast Cruise jetty. Dry landing, good with luggage.'},
+  {id:'mangrove',n:'Mangrove Point',lat:-8.6663,lon:115.4670,k:'spot',s:'Wooden boat through the mangroves, 45 min to 1 hour. Turtles offshore.'},
+  {id:'bridge',n:'Yellow Bridge',lat:-8.6942,lon:115.4510,k:'spot',s:'Scooter bridge to Nusa Ceningan.'},
+  {id:'lagoon',n:'Blue Lagoon',lat:-8.7074,lon:115.4394,k:'spot',s:'Cliff viewpoint on Ceningan. Free, turtles in the swell.'},
+  {id:'mahana',n:'Mahana Point',lat:-8.7063,lon:115.4377,k:'spot',s:'Cliff jump bar, surf watching, sunset. IDR 50K a jump.'}
+];
+var LEMBONGAN=[[115.4465,-8.6640],[115.4600,-8.6600],[115.4700,-8.6650],[115.4725,-8.6720],[115.4660,-8.6800],[115.4615,-8.6850],[115.4570,-8.6915],[115.4515,-8.6938],[115.4450,-8.6965],[115.4385,-8.6948],[115.4335,-8.6928],[115.4300,-8.6920],[115.4270,-8.6892],[115.4262,-8.6830],[115.4318,-8.6810],[115.4360,-8.6760],[115.4418,-8.6710]];
+var CENINGAN=[[115.4528,-8.6952],[115.4630,-8.6965],[115.4728,-8.7010],[115.4705,-8.7080],[115.4600,-8.7105],[115.4480,-8.7115],[115.4390,-8.7095],[115.4355,-8.7060],[115.4400,-8.7010],[115.4465,-8.6975]];
+function islandSVG(opts){
+  opts=opts||{};var W=600,H=600,pad=40;var big=opts.big;var fs=big?'font-size="21"':'';
+  var lo0=115.418,lo1=115.478,la0=-8.656,la1=-8.716;
+  function X(lo){return pad+(lo-lo0)/(lo1-lo0)*(W-2*pad)}function Y(la){return pad+(la0-la)/(la0-la1)*(H-2*pad)}
+  function path(pts){return 'M'+pts.map(function(p){return X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)}).join('L')+'Z'}
+  var s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of Nusa Lembongan and Nusa Ceningan">';
+  s+='<defs><pattern id="wv" width="24" height="12" patternUnits="userSpaceOnUse"><path d="M0 6 q6 -5 12 0 t12 0" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/></pattern></defs>';
+  s+='<rect width="'+W+'" height="'+H+'" fill="url(#wv)"/>';
+  s+='<path d="'+path(LEMBONGAN)+'" fill="#F1E7D3" stroke="#16515F" stroke-width="2.5" stroke-linejoin="round"/>';
+  s+='<path d="'+path(CENINGAN)+'" fill="#F1E7D3" stroke="#16515F" stroke-width="2.5" stroke-linejoin="round"/>';
+  s+='<text class="lbl" x="'+X(115.452)+'" y="'+Y(-8.6785)+'" text-anchor="middle" font-size="'+(big?28:18)+'">Nusa Lembongan</text>';
+  s+='<text class="lbl" x="'+X(115.459)+'" y="'+Y(-8.7045)+'" text-anchor="middle"'+(big?' font-size="22"':'')+'>Nusa Ceningan</text>';
+  s+='<text class="sea" x="'+(pad+4)+'" y="'+(pad+8)+'"'+(big?' font-size="18"':'')+'>SANUR 35 TO 45 MIN BY FAST BOAT</text>';
+  s+='<text class="sea" x="'+(W-pad-4)+'" y="'+(H-pad+22)+'" text-anchor="end"'+(big?' font-size="18"':'')+'>NUSA PENIDA THIS WAY</text>';
+  s+='<path d="M'+(pad+10)+' '+(pad+30)+' l-0 0 m0 0 l-4 -8 m4 8 l8 -4" fill="none" stroke="#3E7C86" stroke-width="1.5"/>';
+  var offs={villas:[-12,-6],sbbc:[13,-7],devil:[-10,20],dream:[14,14],mush:[12,-4],jb:[-12,-8],telatak:[12,4],mangrove:[-14,-10],bridge:[12,14],lagoon:[10,16],mahana:[-12,-10]};
+  var anch={villas:'end',devil:'end',jb:'end',mangrove:'end',mahana:'end'};
+  PLACES.forEach(function(pl,i){
+    var x=X(pl.lon),y=Y(pl.lat),o=offs[pl.id]||[10,4];
+    var fill=pl.k==='villa'?'#E5704B':pl.k==='harbour'?'#0F3B47':'#2FA8A0';
+    s+='<g class="pin" data-id="'+pl.id+'"'+(opts.interactive?' onclick="showPlace(\''+pl.id+'\')"':'')+'>';
+    var r=big?10:6.5;
+    if(pl.k==='villa')s+='<path d="M'+(x-r)+' '+(y+1)+' l'+r+' -'+r+' l'+r+' '+r+' v'+r+' h-'+(2*r)+'z" fill="'+fill+'" stroke="#fff" stroke-width="2"/>';
+    else s+='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+fill+'" stroke="#fff" stroke-width="2.5"/>';
+    s+='<text '+fs+' x="'+(x+o[0]*(big?1.4:1))+'" y="'+(y+o[1]*(big?1.4:1))+'" text-anchor="'+(anch[pl.id]||'start')+'">'+esc(pl.n)+'</text></g>';
+  });
+  if(!big)s+='<g transform="translate('+(W-pad-70)+','+(pad+10)+')"><rect x="0" y="0" width="70" height="60" rx="6" fill="#fff" fill-opacity=".85"/><path d="M8 12 l6 -6 l6 6 v6 h-12z" fill="#E5704B"/><text x="24" y="16" font-size="10" fill="#0F3B47" font-family="Karla">Villas</text><circle cx="14" cy="32" r="5" fill="#0F3B47"/><text x="24" y="36" font-size="10" fill="#0F3B47" font-family="Karla">Harbours</text><circle cx="14" cy="50" r="5" fill="#2FA8A0"/><text x="24" y="54" font-size="10" fill="#0F3B47" font-family="Karla">Spots</text></g>';
+  s+='</svg>';return s;
+}
+function showPlace(id){
+  var pl=PLACES.filter(function(p){return p.id===id})[0];if(!pl)return;
+  document.querySelectorAll('#islandMap .pin').forEach(function(g){g.classList.toggle('on',g.getAttribute('data-id')===id)});
+  var days=S.agenda.days.filter(function(d){var t=(d.title+' '+d.pts.join(' ')).toLowerCase();return t.indexOf(pl.n.toLowerCase().split(' ')[0])>=0&&pl.n.split(' ')[0].length>4});
+  var when=days.length?' On the plan: '+days.map(function(d){return dayLabel(d.d)}).join(', ')+'.':'';
+  document.getElementById('mapInfo').innerHTML='<b>'+esc(pl.n)+'</b> '+esc(pl.s)+when+' <a href="https://www.google.com/maps/search/?api=1&query='+pl.lat+','+pl.lon+'" target="_blank">Open in Maps</a>';
+}
 var TAGS={hosts:'Hosts in/out',suggested:'Suggested',key:'Key event',fixed:'Fixed'};
 var PACK_DEFAULT=[
   ['Documents','Passport (6+ months validity)'],['Documents','Visa on arrival cash or e-VOA'],['Documents','Travel insurance details'],['Documents','Airbnb booking and boat tickets'],
@@ -638,6 +706,7 @@ function openPlan(slot,ideaIdx){
 function dayLabel(d){var x=new Date(d+'T00:00');return x.toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short'});}
 function renderPlan(){
   var A=S.agenda;
+  var im=document.getElementById('islandMap');if(!im.innerHTML)im.innerHTML=islandSVG({interactive:true});
   document.getElementById('planTitle').textContent=A.title;
   document.getElementById('planSub').textContent=A.sub;
   document.getElementById('planSunset').textContent=A.sunset;
@@ -932,10 +1001,11 @@ function makePoster(){
     '<div class="po-line">'+[5,16,27,38,50,61,72,83,94].map(function(x){return '<i style="left:'+x+'%"></i>'}).join('')+'</div>'+
     '<div class="po-row bot">'+bot.map(card).join('')+'</div>';
   var foot='<div class="po-foot"><div><div class="po-rules"><h2>How this trip works</h2><div class="g">'+A.rules.map(function(r,i){return '<div><b>'+(i+1)+'</b><span>'+esc(r)+'</span></div>'}).join('')+'</div><div class="po-sun"><b>Sunset drinks</b><span>'+esc(A.sunset)+'</span></div></div></div>'+
-    '<div class="po-ideas"><h2>Optional island ideas</h2><div class="g">'+(A.ideas||[]).map(function(x){return '<div>'+esc(x)+'</div>'}).join('')+'</div></div></div>';
+    '<div class="po-ideas"><h2>Optional island ideas</h2><div class="g">'+(A.ideas||[]).map(function(x){return '<div>'+esc(x)+'</div>'}).join('')+'</div></div>'+
+    '<div class="po-map">'+islandSVG({big:true})+'</div></div>';
   var base='<div class="po-base"><span>Stay: '+esc(A.stay||'')+'</span><span class="tag2">'+esc(A.tagline||'')+'</span><span>Trip guide: '+esc(A.link||'')+'</span></div>';
   pv.className='poster';pv.innerHTML=hd+hh+rows+foot+base;
-  toast('Landscape works best. Save as PDF or Share');
+  toast('Set paper to A3 landscape, then Save as PDF or Share');
   setTimeout(function(){window.print();setTimeout(function(){pv.className='';},1500);},300);
 }
 function renderAll(){renderTrip();renderPlan();renderDays();renderCrew();renderPack();renderKitty();renderTodo();renderAsk();}
